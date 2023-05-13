@@ -12,9 +12,9 @@ public class Draw {
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
                 Vec3 color = pixels[i][j];
-                int r = (int) color.getX();
-                int g = (int) color.getY();
-                int b = (int) color.getZ();
+                int r = (int) (color.getX() * 255.);
+                int g = (int) (color.getY() * 255.);
+                int b = (int) (color.getZ() * 255.);
                 int p = (256<<24) | (r<<16) | (g<<8) | b;
                 img.setRGB(j, i, p);
             }

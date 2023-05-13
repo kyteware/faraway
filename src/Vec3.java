@@ -15,6 +15,10 @@ public class Vec3 {
         z = all;
     }
 
+    public String toString() {
+        return "Vec3(" + x + ", " + y + ", " + z + ")";
+    }
+
     public double getX() {
         return x;
     }
@@ -51,11 +55,23 @@ public class Vec3 {
         );
     }
 
+    public Vec3 cross(Vec3 other) {
+        return new Vec3(
+            this.y * other.z - this.z * other.y,
+            this.z * other.x - this.x * other.z,
+            this.x * other.y - this.y * other.x
+        );
+    }
+
     public Vec3 div(Vec3 other) {
         return new Vec3(
             this.x / other.x,
             this.y / other.y,
             this.z / other.z
         );
+    }
+
+    public double sum() {
+        return x + y + z;
     }
 }
