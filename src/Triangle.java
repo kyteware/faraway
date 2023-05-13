@@ -23,7 +23,7 @@ public class Triangle {
         return color;
     }
 
-    public Vec4 getPlane() {
+    public Vec4 toPlane() {
         Vec3 line1 = b.sub(a);
         Vec3 line2 = c.sub(a);
         Vec3 normal = line2.cross(line1);
@@ -34,5 +34,23 @@ public class Triangle {
             normal.getZ(),
             k
         );
+    }
+
+    public boolean contains(Vec3 point) {
+        Vec3[][] configs = { { a, b, c }, { b, c, a }, { c, a, b } };
+        for (Vec3[] config : configs) {
+            Vec3 p1 = config[0];
+            Vec3 p2 = config[1];
+            Vec3 p3 = config[2];
+
+            Vec3 line = p2.sub(p3);
+            Vec3 check = line.cross(point.sub(p3));
+            Vec3 known = line.cross(p1.sub(p3));
+            if (check.mul(known).sum() <= 0) {
+                return false;
+            }
+        }
+        // todo: check bounding box first
+        return true;
     }
 }

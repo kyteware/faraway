@@ -22,7 +22,7 @@ public class Vec4 {
         return "Vec4(" + a + ", " + b + ", " + c + ", " + k + ")";
     }
 
-    public double getAA() {
+    public double getA() {
         return a;
     }
     
@@ -36,6 +36,10 @@ public class Vec4 {
 
     public double getK() {
         return k;
+    }
+
+    public Vec3 toABC() {
+        return new Vec3(a, b, c);
     }
 
     public Vec4 add(Vec4 other) {
