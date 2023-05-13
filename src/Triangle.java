@@ -26,7 +26,7 @@ public class Triangle {
     public Vec4 getPlane() {
         Vec3 line1 = b.sub(a);
         Vec3 line2 = c.sub(a);
-        Vec3 normal = line1.cross(line2);
+        Vec3 normal = line2.cross(line1);
         double k = new Vec3(-1.).mul(normal).mul(a).sum();
         return new Vec4(
             normal.getX(),

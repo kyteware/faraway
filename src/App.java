@@ -1,5 +1,9 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println(new Triangle(new Vec3(1., 2., 1.), new Vec3(1., 1., 1.), new Vec3(1., 1., 1.)));
+        Triangle t = new Triangle(
+            new Vec3(-1., 0., 2.), 
+            new Vec3(0., -1., 3.), 
+            new Vec3(1., 0., 2.)
+        );
     }
 }
