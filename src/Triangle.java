@@ -50,7 +50,6 @@ public class Triangle {
                 return false;
             }
         }
-        // todo: check bounding box first
         return true;
     }
 }
