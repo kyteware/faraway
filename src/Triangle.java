@@ -36,7 +36,7 @@ public class Triangle {
         );
     }
 
-    public boolean contains(Vec3 point) {
+    public boolean containsPoint(Vec3 point) {
         Vec3[][] configs = { { a, b, c }, { b, c, a }, { c, a, b } };
         for (Vec3[] config : configs) {
             Vec3 p1 = config[0];

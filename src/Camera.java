@@ -27,7 +27,7 @@ public class Camera {
                         plane.toABC().mul(localM).sum()
                     );
                     Vec3 intercept = (new Vec3(dist)).mul(localM).add(s);
-                    if (dist >= 0. && dist < closestDist && t.contains(intercept)) {
+                    if (dist >= 0. && dist < closestDist && t.containsPoint(intercept)) {
                         closestDist = dist;
                         closestTriangle = t;
                     }
