@@ -22,13 +22,10 @@ public class Camera {
                 Triangle closestTriangle = null;
                 for (Triangle t : triangles) {
                     Vec4 plane = t.toPlane();
-                    double dist = - (
-                        (plane.toABC().mul(s).sum() + plane.getK()) /
-                        plane.toABC().mul(localM).sum()
-                    );
-                    Vec3 intercept = (new Vec3(dist)).mul(localM).add(s);
-                    if (dist >= 0. && dist < closestDist && t.containsPoint(intercept)) {
-                        closestDist = dist;
+                    Vec3 intercept = plane.intercept(localM, s);
+                    double distance = s.distance(intercept);
+                    if (intercept != null && distance < closestDist && t.containsPoint(intercept)) {
+                        closestDist = distance;
                         closestTriangle = t;
                     }
                 }
