@@ -77,20 +77,4 @@ public class Vec4 {
             this.k + other.k
         );
     }
-
-    /**
-     * returns null if intercept behind
-    */
-    public Vec3 intercept(Vec3 m, Vec3 s) {
-        double rawDist = - (
-            (toABC().mul(s).sum() + k) /
-            toABC().mul(m).sum()
-        );
-        if (rawDist >= 0) {
-            return m.mul(new Vec3(rawDist)).add(s);
-        }
-        else {
-            return null;
-        }
-    }
 }

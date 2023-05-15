@@ -14,11 +14,11 @@ public class App {
             new Vec3(0., 1., 0.)
         );
 
-        Triangle[] triangles = { t1, t2 };
+    Triangle[] triangles = { t1, t2 };
 
         Camera c = new Camera(
-            new Vec3(0.),
-            new Vec3(0., 0., 1.)
+            new Vec3(0., 0., 1.),
+            new Vec3(0.)
         );
 
         Vec3[][] pixels = c.render(triangles, 1000, 1000);

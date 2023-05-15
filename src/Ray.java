@@ -1,0 +1,30 @@
+public class Ray {
+    private Vec3 dir;
+    private Vec3 origin;
+
+    public Ray(Vec3 dir, Vec3 origin) {
+        this.dir = dir;
+        this.origin = origin;
+    }
+
+    public Ray(Vec3 dir) {
+        this.dir = dir;
+        this.origin = new Vec3(0.);
+    }
+
+    /**
+     * returns null if intercept behind
+    */
+    public Vec3 intercept(Vec4 plane) {
+        double rawDist = - (
+            (plane.toABC().mul(origin).sum() + plane.getK()) /
+            plane.toABC().mul(dir).sum()
+        );
+        if (rawDist >= 0) {
+            return dir.mul(new Vec3(rawDist)).add(origin);
+        }
+        else {
+            return null;
+        }
+    }
+}
