@@ -8,7 +8,6 @@ public class Draw {
         int width = pixels[0].length;
         int height = pixels.length;
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        File f = null;
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
                 Vec3 color = pixels[i][j];
@@ -20,7 +19,7 @@ public class Draw {
             }
         }
         try {
-            f = new File(path);
+            File f = new File(path);
             ImageIO.write(img, "png", f);
         } catch(IOException e){
             System.out.println(e);

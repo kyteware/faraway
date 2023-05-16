@@ -12,6 +12,18 @@ public class Ray {
         this.origin = new Vec3(0.);
     }
 
+    public String toString() {
+        return "Ray(" + this.dir + ", " + this.origin + ")";
+    }
+
+    public Vec3 getOrigin() {
+        return origin;
+    }
+
+    public Vec3 getDir() {
+        return dir;
+    }
+
     /**
      * returns null if intercept behind
     */

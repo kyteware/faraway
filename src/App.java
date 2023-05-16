@@ -8,7 +8,7 @@ public class App {
         );
 
         Triangle t2 = new Triangle(
-            new Vec3(-1.5, -1., 2.), 
+            new Vec3(-2.5, -1., 2.), 
             new Vec3(1., -1., 2.5), 
             new Vec3(1., 1., 2.5),
             new Vec3(0., 0.5, 0.)
@@ -30,7 +30,9 @@ public class App {
 
         Camera[] cameras = { c };
 
-        Scene scene = new Scene(cameras, triangles);
+        Vec3 background = new Vec3(0.4, 0.6, 1.);
+
+        Scene scene = new Scene(cameras, triangles, background);
 
         scene.render_cams();
     }
