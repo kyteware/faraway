@@ -1,10 +1,15 @@
 public class Camera {
     private Vec3 position;
     private Vec3 dir;
+    private CameraSettings settings;
 
     public Camera(Vec3 dir, Vec3 position) {
         this.dir = dir;
         this.position = position;
+    }
+
+    public CameraSettings getSettings() {
+        return settings;
     }
 
     public Vec3[][] render(Triangle[] triangles, int width, int height) {
@@ -12,6 +17,7 @@ public class Camera {
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
+                // get closest triangle
                 double closestDist = Double.POSITIVE_INFINITY;
                 Triangle closestTriangle = null;
                 for (Triangle t : triangles) {
@@ -32,12 +38,16 @@ public class Camera {
                     }
                 }
 
+                // get raw color from rays
+                Vec3 color;
                 if (closestTriangle != null) {
-                    pixels[i][j] = closestTriangle.getColor();
+                    color = closestTriangle.getColor();
                 }
                 else {
-                    pixels[i][j] = new Vec3(0.);
+                    color = new Vec3(0.);
                 }
+
+                pixels[i][j] = color;
             }
         }
 
