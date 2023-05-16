@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Draw {
-    public static void drawImage(Vec3[][] pixels) {
+    public static void drawImage(Vec3[][] pixels, String path) {
         int width = pixels[0].length;
         int height = pixels.length;
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -20,7 +20,7 @@ public class Draw {
             }
         }
         try {
-            f = new File("output.jpg");
+            f = new File(path);
             ImageIO.write(img, "png", f);
         } catch(IOException e){
             System.out.println(e);
