@@ -12,7 +12,9 @@ public class Camera {
         return settings;
     }
 
-    public Vec3[][] render(Triangle[] triangles, int width, int height) {
+    public Vec3[][] render(Triangle[] triangles) {
+        int width = 1000;
+        int height = 1000;
         Vec3[][] pixels = new Vec3[height][width];
 
         for (int i=0; i<height; i++) {
