@@ -20,45 +20,50 @@ public class Camera {
 
         for (int i=0; i<pixelHeight; i++) {
             for (int j=0; j<pixelWidth; j++) {
-                // get closest triangle
-                double closestDist = Double.POSITIVE_INFINITY;
-                Triangle closestTriangle = null;
-                for (Triangle t : triangles) {
-                    Ray ray = new Ray(
-                        new Vec3(
-                            dir.getX() + (double)(j-pixelWidth/2) / (pixelWidth/settings.getWidth()),
-                            dir.getY() - (double)(i-pixelHeight/2) / (pixelHeight/settings.getHeight()),
-                            1.
-                        ),
-                        position
-                    );
-                    if (ray.getDir().getX() < -2.) {
-                        System.out.println(ray);
-                    }
-                    Vec4 plane = t.toPlane();
-                    Vec3 intercept = ray.intercept(plane);
-                    if (intercept != null) {
-                        double distance = position.distance(intercept);
-                        if (distance < closestDist && t.containsPoint(intercept)) {
-                            closestDist = distance;
-                            closestTriangle = t;
-                        }
-                    }
-                }
-
-                // get raw color from rays
-                Vec3 color;
-                if (closestTriangle != null) {
-                    color = closestTriangle.getColor();
-                }
-                else {
-                    color = background;
-                }
-
+                Ray ray = generateBaseRay(i, j, pixelHeight, pixelWidth);
+                Vec3 color = getRayColor(ray, triangles, background);
                 pixels[i][j] = color;
             }
         }
 
         return pixels;
+    }
+
+    private Ray generateBaseRay(int i, int j, int ph, int pw) {
+        return new Ray(
+            new Vec3(
+                dir.getX() + (double)(j-pw/2) / (pw/settings.getWidth()),
+                dir.getY() - (double)(i-ph/2) / (ph/settings.getHeight()),
+                1.
+            ),
+            position
+        );
+    }
+
+    private Vec3 getRayColor(Ray ray, Triangle[] triangles, Vec3 background) {
+        double closestDist = Double.POSITIVE_INFINITY;
+        Triangle closestTriangle = null;
+
+        for (Triangle t : triangles) {
+            Vec4 plane = t.toPlane();
+            Vec3 intercept = ray.intercept(plane);
+            if (intercept != null) {
+                double distance = position.distance(intercept);
+                if (distance < closestDist && t.containsPoint(intercept)) {
+                    closestDist = distance;
+                    closestTriangle = t;
+                }
+            }
+        }
+
+        Vec3 color;
+        if (closestTriangle != null) {
+            color = closestTriangle.getColor();
+        }
+        else {
+            color = background;
+        }
+
+        return color;
     }
 }
