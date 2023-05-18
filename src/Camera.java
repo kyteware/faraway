@@ -21,7 +21,7 @@ public class Camera {
         for (int i=0; i<pixelHeight; i++) {
             for (int j=0; j<pixelWidth; j++) {
                 Ray ray = generateBaseRay(i, j, pixelHeight, pixelWidth);
-                Vec3 color = getRayColor(ray, triangles, background);
+                Vec3 color = new Vec3(0.);
                 pixels[i][j] = color;
             }
         }
@@ -37,6 +37,18 @@ public class Camera {
                 1.
             ),
             position
+        );
+    }
+
+    private Ray generateAARay(Ray base, double ah, double av) {
+        return new Ray(
+            base.getDir().add(
+                new Vec3(
+                    Math.random() * ah,
+                    Math.random() * av,
+                    0.
+                )
+            )
         );
     }
 
