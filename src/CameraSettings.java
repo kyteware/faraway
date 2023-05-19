@@ -2,11 +2,13 @@ public class CameraSettings {
     private double gamma;
     private double ratio;
     private double length;
+    private double samples;
 
     public CameraSettings() {
         gamma = 2;
         ratio = 16./9.;
         length = 1;
+        samples = 50.;
     }
 
     public double getRatio() {
@@ -39,5 +41,13 @@ public class CameraSettings {
 
     public double getWidth() {
         return getHeight() * getRatio();
+    }
+
+    public double getSamples() {
+        return samples;
+    }
+
+    public void setSamples(int samples) {
+        this.samples = samples;
     }
 }

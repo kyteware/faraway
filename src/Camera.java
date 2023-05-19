@@ -20,8 +20,14 @@ public class Camera {
 
         for (int i=0; i<pixelHeight; i++) {
             for (int j=0; j<pixelWidth; j++) {
-                Ray ray = generateBaseRay(i, j, pixelHeight, pixelWidth);
+                Ray baseRay = generateBaseRay(i, j, pixelHeight, pixelWidth);
                 Vec3 color = new Vec3(0.);
+                for (int k=0; k<settings.getSamples(); k++) {
+                    Ray aaRay = generateAARay(baseRay, settings.getWidth() / pixelWidth, settings.getHeight() / pixelHeight);
+                    Vec3 rayColor = getRayColor(aaRay, triangles, background);
+                    color = color.add(rayColor);
+                }
+                color = color.div(new Vec3(settings.getSamples()));
                 pixels[i][j] = color;
             }
         }
