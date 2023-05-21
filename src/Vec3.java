@@ -79,4 +79,9 @@ public class Vec3 {
         double sum = Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2) + Math.pow(this.z - other.z, 2);
         return Math.sqrt(sum);
     }
+
+    public Vec3 normalize() {
+        double length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        return new Vec3(x / length, y / length, z / length);
+    }
 }
