@@ -6,12 +6,14 @@ import java.nio.file.Paths;
 public class Scene {
     private Camera[] cameras;
     private Triangle[] triangles;
+    private Light[] lights;
     private Vec3 background;
 
-    public Scene(Camera[] cameras, Triangle[] triangles, Vec3 background) {
+    public Scene(Camera[] cameras, Triangle[] triangles, Light[] lights, Vec3 background) {
         this.cameras = cameras;
         this.triangles = triangles;
         this.background = background;
+        this.lights = lights;
     }
 
     public void render_cams() {
@@ -23,7 +25,7 @@ public class Scene {
         }
         for (int i=0; i<cameras.length; i++) {
             String path = "outputs/cam" + i + ".png";
-            Vec3[][] pixels = cameras[i].render(triangles, background);
+            Vec3[][] pixels = cameras[i].render(triangles, lights, background);
             Draw.drawImage(pixels, path);
         }
     }

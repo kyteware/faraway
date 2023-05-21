@@ -13,7 +13,7 @@ public class Camera {
         return settings;
     }
 
-    public Vec3[][] render(Triangle[] triangles, Vec3 background) {
+    public Vec3[][] render(Triangle[] triangles, Light[] lights, Vec3 background) {
         int pixelHeight = (int) (settings.getHeight() * 1000);
         int pixelWidth = (int) (settings.getWidth() * 1000);
         Vec3[][] pixels = new Vec3[pixelHeight][pixelWidth];
@@ -24,7 +24,7 @@ public class Camera {
                 Vec3 color = new Vec3(0.);
                 for (int k=0; k<settings.getSamples(); k++) {
                     Ray aaRay = generateAARay(baseRay, settings.getWidth() / pixelWidth, settings.getHeight() / pixelHeight);
-                    Vec3 rayColor = getRayColor(aaRay, triangles, background);
+                    Vec3 rayColor = getRayColor(aaRay, triangles, lights, background);
                     color = color.add(rayColor);
                 }
                 color = color.div(new Vec3(settings.getSamples()));
@@ -58,25 +58,43 @@ public class Camera {
         );
     }
 
-    private Vec3 getRayColor(Ray ray, Triangle[] triangles, Vec3 background) {
+    private Vec3 getRayColor(Ray ray, Triangle[] triangles, Light[] lights, Vec3 background) {
         double closestDist = Double.POSITIVE_INFINITY;
         Triangle closestTriangle = null;
+        Vec3 intercept = null;
 
         for (Triangle t : triangles) {
             Vec4 plane = t.toPlane();
-            Vec3 intercept = ray.intercept(plane);
-            if (intercept != null) {
-                double distance = position.distance(intercept);
-                if (distance < closestDist && t.containsPoint(intercept)) {
+            Vec3 localIntercept = ray.intercept(plane);
+            if (localIntercept != null) {
+                double distance = position.distance(localIntercept);
+                if (distance < closestDist && t.containsPoint(localIntercept)) {
                     closestDist = distance;
                     closestTriangle = t;
+                    intercept = localIntercept;
                 }
             }
         }
 
-        Vec3 color;
+        Vec3 color = new Vec3(0.);;
         if (closestTriangle != null) {
-            color = closestTriangle.getColor();
+            Vec3 triangleColor = closestTriangle.getColor();
+            for (Light light : lights) {
+                double distanceToLight = intercept.distance(light.getPosition());
+                double lightIntensity = light.getIntensity() / Math.pow(distanceToLight, 2);
+                Vec3 normal = closestTriangle.getNormal();
+                Vec3 toLight = light.getPosition().sub(intercept).normalize();
+                double angleEffect = normal.mul(toLight).sum();
+                if (angleEffect < 0) {
+                    normal = normal.mul(new Vec3(-1.));
+                    angleEffect = normal.mul(toLight).sum();
+                }
+                Vec3 linearTriangle = triangleColor.pow(new Vec3(2.2));
+                Vec3 linearLight = light.getColor().pow(new Vec3(2.2));
+                Vec3 contribution = linearTriangle.mul(linearLight).mul(new Vec3(angleEffect)).mul(new Vec3(lightIntensity));
+                color = color.add(contribution);
+            }
+            color = color.pow(new Vec3(1./2.2));
         }
         else {
             color = background;

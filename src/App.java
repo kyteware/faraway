@@ -28,11 +28,21 @@ public class App {
             new Vec3(0.)
         );
 
+        c.getSettings().setSamples(5);
+
         Camera[] cameras = { c };
 
         Vec3 background = new Vec3(0.4, 0.6, 1.);
 
-        Scene scene = new Scene(cameras, triangles, background);
+        Light l1 = new Light(
+            new Vec3(0.),
+            new Vec3(1.),
+            3.
+        );
+
+        Light[] lights = { l1 };
+
+        Scene scene = new Scene(cameras, triangles, lights, background);
 
         scene.render_cams();
     }
