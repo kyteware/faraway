@@ -71,6 +71,30 @@ public class Vec3 {
         );
     }
 
+    public Vec3 pow(Vec3 other) {
+        return new Vec3(
+            Math.pow(this.x, other.x),
+            Math.pow(this.y, other.y),
+            Math.pow(this.z, other.z)
+        );
+    }
+
+    public Vec3 min(Vec3 other) {
+        return new Vec3(
+            Math.min(this.x, other.x),
+            Math.min(this.y, other.y),
+            Math.min(this.z, other.z)
+        );
+    }
+
+    public Vec3 max(Vec3 other) {
+        return new Vec3(
+            Math.max(this.x, other.x),
+            Math.max(this.y, other.y),
+            Math.max(this.z, other.z)
+        );
+    }
+
     public double sum() {
         return x + y + z;
     }
