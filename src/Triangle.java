@@ -23,10 +23,14 @@ public class Triangle {
         return color;
     }
 
-    public Vec4 toPlane() {
+    public Vec3 getNormal() {
         Vec3 line1 = b.sub(a);
         Vec3 line2 = c.sub(a);
-        Vec3 normal = line2.cross(line1);
+        return line2.cross(line1);
+    }
+
+    public Vec4 toPlane() {
+        Vec3 normal = getNormal();
         double k = new Vec3(-1.).mul(normal).mul(a).sum();
         return new Vec4(
             normal.getX(),
