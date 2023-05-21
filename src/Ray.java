@@ -39,4 +39,11 @@ public class Ray {
             return null;
         }
     }
+
+    public Ray reflect(Vec4 plane) {
+        Vec3 intercept = intercept(plane);
+        Vec3 normal = plane.toABC();
+        Vec3 newDir = dir.sub(normal.mul(dir.mul(normal).mul(new Vec3(2.))));
+        return new Ray(newDir, intercept);
+    }
 }
