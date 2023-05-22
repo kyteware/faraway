@@ -40,7 +40,7 @@ public class App {
             3.
         );
 
-        Light[] lights = { l1 };
+        Light[] lights = { l1, l1};
 
         Scene scene = new Scene(cameras, triangles, lights, background);
 
