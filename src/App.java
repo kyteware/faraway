@@ -4,21 +4,21 @@ public class App {
             new Vec3(-1., 0., 2.), 
             new Vec3(0., -1., 3.), 
             new Vec3(1., 0., 2.),
-            new Vec3(0.5, 0.5, 0.)
+            new Vec3(0.5, 0.5, 0.2)
         );
 
         Triangle t2 = new Triangle(
             new Vec3(-2.5, -1., 2.), 
             new Vec3(1., -1., 2.5), 
             new Vec3(1., 1., 2.5),
-            new Vec3(0., 0.5, 0.)
+            new Vec3(0.2, 0.5, 0.2)
         );
 
         Triangle t3 = new Triangle(
             new Vec3(-1., 0., 2.), 
             new Vec3(0., 1., 3.), 
             new Vec3(1., 0., 2.),
-            new Vec3(0., 0., 0.5)
+            new Vec3(0.2, 0.2, 0.5)
         );
 
         Triangle[] triangles = { t1, t2, t3 };
@@ -35,12 +35,24 @@ public class App {
         Vec3 background = new Vec3(0.4, 0.6, 1.);
 
         Light l1 = new Light(
-            new Vec3(0.),
-            new Vec3(1.),
+            new Vec3(-3, 0, 1),
+            new Vec3(1, 1, 1),
             3.
         );
 
-        Light[] lights = { l1, l1};
+        Light l2 = new Light(
+            new Vec3(3, 0, 1),
+            new Vec3(1, 1, 1),
+            3.
+        );
+
+        Light l3 = new Light(
+            new Vec3(0, 0, 1.75),
+            new Vec3(1, 1, 1),
+            1.
+        );
+
+        Light[] lights = { l1, l2, l3 };
 
         Scene scene = new Scene(cameras, triangles, lights, background);
 

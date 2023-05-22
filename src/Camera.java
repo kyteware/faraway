@@ -84,16 +84,15 @@ public class Camera {
                 double lightIntensity = light.getIntensity() / Math.pow(distanceToLight, 2);
                 Vec3 normal = closestTriangle.getNormal().normalize();
                 Vec3 dirToLight = light.getPosition().sub(intercept).normalize();
-                // System.out.println(normal + " " + dirToLight);
                 double strength = normal.mul(dirToLight).sum();
                 if (strength < 0) {
                     normal = normal.mul(new Vec3(-1.));
                     strength = normal.mul(dirToLight).sum();
                 }
-                // System.out.println(triangleColor + " " + light.getColor() + " " + strength + " " + lightIntensity);
                 Vec3 contribution = triangleColor.mul(light.getColor()).mul(new Vec3(strength * lightIntensity));
                 color = color.add(contribution);
             }
+            color = color.min(new Vec3(1.));
         }
         else {
             color = background;
