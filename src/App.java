@@ -34,14 +34,15 @@ public class App {
 
         Vec3 background = new Vec3(0.4, 0.6, 1.);
 
-        Light l1 = new Light(
-            new Vec3(0, 3, 1.5),
+        Light l1 = new PointLight(
+            new Vec3(-3.3, -1., 0.5),
             new Vec3(1, 1, 1),
-            15.,
-            Light.Type.POINT
+            1.2
         );
 
-        Light[] lights = { l1  };
+        Light l2 = new AmbientLight(background, 0.1);
+
+        Light[] lights = { l1, l2 };
 
         Scene scene = new Scene(cameras, triangles, lights, background);
 

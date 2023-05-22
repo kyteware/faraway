@@ -28,6 +28,8 @@ public class Camera {
                     color = color.add(rayColor);
                 }
                 color = color.div(new Vec3(settings.getSamples()));
+                // gamma
+                color = color.pow(new Vec3(1./settings.getGamma()));
                 pixels[i][j] = color;
             }
         }
@@ -78,18 +80,9 @@ public class Camera {
 
         Vec3 color = new Vec3(0.);;
         if (closestTriangle != null) {
-            Vec3 triangleColor = closestTriangle.getColor();
             for (Light light : lights) {
-                double distanceToLight = intercept.distance(light.getPosition());
-                double lightIntensity = light.getIntensity() / Math.pow(distanceToLight, 2);
-                Vec3 normal = closestTriangle.getNormal().normalize();
-                Vec3 dirToLight = light.getPosition().sub(intercept).normalize();
-                double strength = normal.mul(dirToLight).sum();
-                if (strength < 0) {
-                    normal = normal.mul(new Vec3(-1.));
-                    strength = normal.mul(dirToLight).sum();
-                }
-                Vec3 contribution = triangleColor.mul(light.getColor()).mul(new Vec3(strength * lightIntensity));
+                Vec3 rawContribution = light.contribution(intercept, closestTriangle.getNormal(), triangles);
+                Vec3 contribution = closestTriangle.getColor().mul(rawContribution);
                 color = color.add(contribution);
             }
             color = color.min(new Vec3(1.));
