@@ -35,24 +35,13 @@ public class App {
         Vec3 background = new Vec3(0.4, 0.6, 1.);
 
         Light l1 = new Light(
-            new Vec3(-3, 0, 1),
+            new Vec3(0, 3, 1.5),
             new Vec3(1, 1, 1),
-            3.
+            15.,
+            Light.Type.POINT
         );
 
-        Light l2 = new Light(
-            new Vec3(3, 0, 1),
-            new Vec3(1, 1, 1),
-            3.
-        );
-
-        Light l3 = new Light(
-            new Vec3(0, 0, 1.75),
-            new Vec3(1, 1, 1),
-            1.
-        );
-
-        Light[] lights = { l1, l2, l3 };
+        Light[] lights = { l1  };
 
         Scene scene = new Scene(cameras, triangles, lights, background);
 

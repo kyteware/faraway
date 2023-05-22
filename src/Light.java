@@ -2,11 +2,19 @@ public class Light {
     Vec3 position;
     Vec3 color;
     double intensity;
+    Type type;
 
-    public Light(Vec3 position, Vec3 color, double intensity) {
+    public enum Type {
+        POINT,
+        DIRECTIONAL,
+        AMBIENT
+    }
+
+    public Light(Vec3 position, Vec3 color, double intensity, Type type) {
         this.position = position;
         this.color = color;
         this.intensity = intensity;
+        this.type = type;
     }
 
     public Vec3 getPosition() {
@@ -19,6 +27,10 @@ public class Light {
 
     public double getIntensity() {
         return intensity;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public String toString() {
