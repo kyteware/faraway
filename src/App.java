@@ -4,21 +4,21 @@ public class App {
             new Vec3(-1., 0., 2.), 
             new Vec3(0., -1., 3.), 
             new Vec3(1., 0., 2.),
-            new Vec3(0.5, 0.5, 0.2)
+            new Color(0.5, 0.5, 0.2)
         );
 
         Triangle t2 = new Triangle(
             new Vec3(-2.5, -1., 2.), 
             new Vec3(1., -1., 2.5), 
             new Vec3(1., 1., 2.5),
-            new Vec3(0.2, 0.5, 0.2)
+            new Color(0.2, 0.5, 0.2)
         );
 
         Triangle t3 = new Triangle(
             new Vec3(-1., 0., 2.), 
             new Vec3(0., 1., 3.), 
             new Vec3(1., 0., 2.),
-            new Vec3(0.2, 0.2, 0.5)
+            new Color(0.2, 0.2, 0.5)
         );
 
         Triangle[] triangles = { t1, t2, t3 };
@@ -32,11 +32,11 @@ public class App {
 
         Camera[] cameras = { c };
 
-        Vec3 background = new Vec3(0.4, 0.6, 1.);
+        Color background = new Color(0.2, 0.3, 0.5);
 
         Light l1 = new PointLight(
             new Vec3(-3.3, -1., 0.5),
-            new Vec3(1, 1, 1),
+            new Color(1, 1, 1),
             1.2
         );
 

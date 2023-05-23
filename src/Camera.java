@@ -13,23 +13,23 @@ public class Camera {
         return settings;
     }
 
-    public Vec3[][] render(Triangle[] triangles, Light[] lights, Vec3 background) {
+    public Color[][] render(Triangle[] triangles, Light[] lights, Color background) {
         int pixelHeight = (int) (settings.getHeight() * 1000);
         int pixelWidth = (int) (settings.getWidth() * 1000);
-        Vec3[][] pixels = new Vec3[pixelHeight][pixelWidth];
+        Color[][] pixels = new Color[pixelHeight][pixelWidth];
 
         for (int i=0; i<pixelHeight; i++) {
             for (int j=0; j<pixelWidth; j++) {
                 Ray baseRay = generateBaseRay(i, j, pixelHeight, pixelWidth);
-                Vec3 color = new Vec3(0.);
+                Color color = new Color(0.);
                 for (int k=0; k<settings.getSamples(); k++) {
                     Ray aaRay = generateAARay(baseRay, settings.getWidth() / pixelWidth, settings.getHeight() / pixelHeight);
-                    Vec3 rayColor = getRayColor(aaRay, triangles, lights, background);
+                    Color rayColor = getRayColor(aaRay, triangles, lights, background);
                     color = color.add(rayColor);
                 }
-                color = color.div(new Vec3(settings.getSamples()));
+                color = color.div(settings.getSamples());
                 // gamma
-                color = color.pow(new Vec3(1./settings.getGamma()));
+                color = color.pow(1./settings.getGamma());
                 pixels[i][j] = color;
             }
         }
@@ -60,7 +60,7 @@ public class Camera {
         );
     }
 
-    private Vec3 getRayColor(Ray ray, Triangle[] triangles, Light[] lights, Vec3 background) {
+    private Color getRayColor(Ray ray, Triangle[] triangles, Light[] lights, Color background) {
         double closestDist = Double.POSITIVE_INFINITY;
         Triangle closestTriangle = null;
         Vec3 intercept = null;
@@ -78,14 +78,14 @@ public class Camera {
             }
         }
 
-        Vec3 color = new Vec3(0.);;
+        Color color = new Color(0.);;
         if (closestTriangle != null) {
             for (Light light : lights) {
-                Vec3 rawContribution = light.contribution(intercept, closestTriangle.getNormal(), triangles);
-                Vec3 contribution = closestTriangle.getColor().mul(rawContribution);
+                Color rawContribution = light.contribution(intercept, closestTriangle.getNormal(), triangles);
+                Color contribution = closestTriangle.getColor().mul(rawContribution);
                 color = color.add(contribution);
             }
-            color = color.min(new Vec3(1.));
+            color = color.cap();
         }
         else {
             color = background;

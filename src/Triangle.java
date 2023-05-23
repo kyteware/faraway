@@ -2,9 +2,9 @@ public class Triangle {
     private Vec3 a;
     private Vec3 b;
     private Vec3 c;
-    private Vec3 color;
+    private Color color;
 
-    public Triangle(Vec3 a, Vec3 b, Vec3 c, Vec3 color) {
+    public Triangle(Vec3 a, Vec3 b, Vec3 c, Color color) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -12,14 +12,14 @@ public class Triangle {
     }
 
     public Triangle(Vec3 a, Vec3 b, Vec3 c) {
-        this(a, b, c, new Vec3(1.));
+        this(a, b, c, new Color(1.));
     }
 
     public String toString() {
         return "Triangle(" + a + ", " + b + ", " + c + ", " + color + ")";
     }
 
-    public Vec3 getColor() {
+    public Color getColor() {
         return color;
     }
 
