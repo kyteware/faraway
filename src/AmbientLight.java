@@ -7,7 +7,7 @@ public class AmbientLight extends Light {
         this.intensity = intensity;
     }
 
-    public Color contribution(Vec3 intercept, Vec3 normal, Triangle[] triangles) {
+    public Color contribution(Vec3 intercept, Vec3 normal, Triangle[] triangles, Triangle currentTriangle) {
         return color.mul(intensity);
     }
 }

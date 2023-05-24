@@ -81,7 +81,7 @@ public class Camera {
         Color color = new Color(0.);;
         if (closestTriangle != null) {
             for (Light light : lights) {
-                Color rawContribution = light.contribution(intercept, closestTriangle.getNormal(), triangles);
+                Color rawContribution = light.contribution(intercept, closestTriangle.getNormal(), triangles, closestTriangle);
                 Color contribution = closestTriangle.getColor().mul(rawContribution);
                 color = color.add(contribution);
             }

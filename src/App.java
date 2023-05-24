@@ -36,9 +36,9 @@ public class App {
         Color background = new Color(0.2, 0.3, 0.5);
 
         Light l1 = new PointLight(
-            new Vec3(-3.3, -1., 0.5),
+            new Vec3(-1.5, 0, 0),
             new Color(1, 1, 1),
-            1.2
+            0.8
         );
 
         Light l2 = new AmbientLight(background, 0.1);
