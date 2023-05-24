@@ -16,6 +16,22 @@ public class Scene {
         this.lights = lights;
     }
 
+    public Camera[] getCameras() {
+        return cameras;
+    }
+
+    public Triangle[] getTriangles() {
+        return triangles;
+    }
+
+    public Light[] getLights() {
+        return lights;
+    }
+
+    public Color getBackground() {
+        return background;
+    }
+
     public void render_cams() {
         try {
             Utils.deleteDirectory(new File("outputs"));
@@ -26,7 +42,7 @@ public class Scene {
         for (int i=0; i<cameras.length; i++) {
             String path = "outputs/cam" + i + ".png";
             double start = System.currentTimeMillis();
-            Color[][] pixels = cameras[i].render(triangles, lights, background);
+            Color[][] pixels = cameras[i].render(this);
             System.out.println("Rendered in " + (System.currentTimeMillis() - start) + "ms");
             start = System.currentTimeMillis();
             Draw.drawImage(pixels, path);

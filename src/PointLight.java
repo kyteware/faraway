@@ -13,10 +13,10 @@ public class PointLight extends Light {
         return "Light(" + position + ", " + color + ")";
     }
 
-    public Color contribution(Vec3 intercept, Vec3 normal, Triangle[] triangles, Triangle currentTriangle) {
+    public Color contribution(Vec3 intercept, Triangle currentTriangle, Scene scene) {
         double distanceToLight = intercept.distance(position);
 
-        for (Triangle t : triangles) {
+        for (Triangle t : scene.getTriangles()) {
             if (currentTriangle == t) {
                 continue;
             }
@@ -31,6 +31,7 @@ public class PointLight extends Light {
         }
         double lightIntensity = intensity / Math.pow(distanceToLight, 2);
         Vec3 dirToLight = intercept.sub(position).normalize();
+        Vec3 normal = currentTriangle.getNormal();
         double strength = normal.mul(dirToLight).sum();
         if (strength < 0) {
             normal = normal.mul(new Vec3(-1.));
