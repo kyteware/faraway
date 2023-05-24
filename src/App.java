@@ -28,7 +28,7 @@ public class App {
             new Vec3(0.)
         );
 
-        c.getSettings().setSamples(5);
+        c.getSettings().setSamples(25);
         c.getSettings().setPixelHeight(720);
 
         Camera[] cameras = { c };
