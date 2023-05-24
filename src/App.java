@@ -29,6 +29,7 @@ public class App {
         );
 
         c.getSettings().setSamples(5);
+        c.getSettings().setPixelHeight(720);
 
         Camera[] cameras = { c };
 

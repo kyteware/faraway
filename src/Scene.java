@@ -25,8 +25,12 @@ public class Scene {
         }
         for (int i=0; i<cameras.length; i++) {
             String path = "outputs/cam" + i + ".png";
+            double start = System.currentTimeMillis();
             Color[][] pixels = cameras[i].render(triangles, lights, background);
+            System.out.println("Rendered in " + (System.currentTimeMillis() - start) + "ms");
+            start = System.currentTimeMillis();
             Draw.drawImage(pixels, path);
+            System.out.println("Drawn in " + (System.currentTimeMillis() - start) + "ms");
         }
     }
 }

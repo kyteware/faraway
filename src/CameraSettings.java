@@ -3,12 +3,14 @@ public class CameraSettings {
     private double ratio;
     private double length;
     private double samples;
+    private int pixelHeight;
 
     public CameraSettings() {
         gamma = 2;
         ratio = 16./9.;
         length = 1;
         samples = 50.;
+        pixelHeight = 1080;
     }
 
     public double getRatio() {
@@ -27,11 +29,11 @@ public class CameraSettings {
         this.gamma = gamma;
     }
 
-    public double getLength() {
+    public double getLensLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLensLength(double length) {
         this.length = length;
     }
 
@@ -41,6 +43,18 @@ public class CameraSettings {
 
     public double getWidth() {
         return getHeight() * getRatio();
+    }
+
+    public int getPixelHeight() {
+        return pixelHeight;
+    }
+
+    public void setPixelHeight(int pixelHeight) {
+        this.pixelHeight = pixelHeight;
+    }
+
+    public int getPixelWidth() {
+        return (int) (getPixelHeight() * getRatio());
     }
 
     public double getSamples() {

@@ -14,8 +14,8 @@ public class Camera {
     }
 
     public Color[][] render(Triangle[] triangles, Light[] lights, Color background) {
-        int pixelHeight = (int) (settings.getHeight() * 1000);
-        int pixelWidth = (int) (settings.getWidth() * 1000);
+        int pixelHeight = settings.getPixelHeight();
+        int pixelWidth = settings.getPixelWidth();
         Color[][] pixels = new Color[pixelHeight][pixelWidth];
 
         for (int i=0; i<pixelHeight; i++) {
