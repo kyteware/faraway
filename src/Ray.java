@@ -46,4 +46,37 @@ public class Ray {
         Vec3 newDir = dir.sub(normal.mul(dir.mul(normal).mul(new Vec3(2.))));
         return new Ray(newDir, intercept);
     }
+
+    public Color getColor(Scene scene) {
+        double closestDist = Double.POSITIVE_INFINITY;
+        Triangle closestTriangle = null;
+        Vec3 intercept = null;
+
+        for (Triangle t : scene.getTriangles()) {
+            Vec4 plane = t.toPlane();
+            Vec3 localIntercept = this.intercept(plane);
+            if (localIntercept != null) {
+                double distance = origin.distance(localIntercept);
+                if (distance < closestDist && t.containsPoint(localIntercept)) {
+                    closestDist = distance;
+                    closestTriangle = t;
+                    intercept = localIntercept;
+                }
+            }
+        }
+
+        Color color = new Color(0.);;
+        if (closestTriangle != null) {
+            for (Light light : scene.getLights()) {
+                Color contribution = light.contribution(intercept, closestTriangle, scene);
+                color = color.add(contribution);
+            }
+            color = color.mul(closestTriangle.getColor()).cap();
+        }
+        else {
+            color = scene.getBackground();
+        }
+
+        return color;
+    }
 }

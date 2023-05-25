@@ -24,8 +24,7 @@ public class Camera {
                 Color color = new Color(0.);
                 for (int k=0; k<settings.getSamples(); k++) {
                     Ray aaRay = generateAARay(baseRay, settings.getWidth() / pixelWidth, settings.getHeight() / pixelHeight);
-                    Color rayColor = getRayColor(aaRay, scene);
-                    color = color.add(rayColor);
+                    color = color.add(aaRay.getColor(scene));
                 }
                 color = color.div(settings.getSamples());
                 // gamma
@@ -58,38 +57,5 @@ public class Camera {
                 )
             )
         );
-    }
-
-    private Color getRayColor(Ray ray, Scene scene) {
-        double closestDist = Double.POSITIVE_INFINITY;
-        Triangle closestTriangle = null;
-        Vec3 intercept = null;
-
-        for (Triangle t : scene.getTriangles()) {
-            Vec4 plane = t.toPlane();
-            Vec3 localIntercept = ray.intercept(plane);
-            if (localIntercept != null) {
-                double distance = position.distance(localIntercept);
-                if (distance < closestDist && t.containsPoint(localIntercept)) {
-                    closestDist = distance;
-                    closestTriangle = t;
-                    intercept = localIntercept;
-                }
-            }
-        }
-
-        Color color = new Color(0.);;
-        if (closestTriangle != null) {
-            for (Light light : scene.getLights()) {
-                Color contribution = light.contribution(intercept, closestTriangle, scene);
-                color = color.add(contribution);
-            }
-            color = color.mul(closestTriangle.getColor()).cap();
-        }
-        else {
-            color = scene.getBackground();
-        }
-
-        return color;
     }
 }
