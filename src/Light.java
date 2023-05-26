@@ -1,3 +1,3 @@
 public abstract class Light {
-    public abstract Color contribution(Vec3 intercept, Triangle currentTriangle, Scene scene);
+    public abstract Color contribution(Ray oldRay, Triangle currentTriangle, Scene scene);
 }
