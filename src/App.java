@@ -38,12 +38,16 @@ public class App {
         Light l1 = new PointLight(
             new Vec3(-1.5, 0, 0),
             new Color(1, 1, 1),
-            0.8
+            1.5
         );
 
         Light l2 = new AmbientLight(background, 0.1);
 
-        Light[] lights = { l1, l2 };
+        Light l3 = new PointLight(
+            new Vec3(0, 0, 5), background, 100
+        );
+
+        Light[] lights = { l1, l2, l3 };
 
         Scene scene = new Scene(cameras, triangles, lights, background);
 

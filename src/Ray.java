@@ -50,7 +50,6 @@ public class Ray {
     public Color getColor(Scene scene) {
         double closestDist = Double.POSITIVE_INFINITY;
         Triangle closestTriangle = null;
-        Vec3 intercept = null;
 
         for (Triangle t : scene.getTriangles()) {
             Vec4 plane = t.toPlane();
@@ -60,7 +59,6 @@ public class Ray {
                 if (distance < closestDist && t.containsPoint(localIntercept)) {
                     closestDist = distance;
                     closestTriangle = t;
-                    intercept = localIntercept;
                 }
             }
         }
@@ -68,7 +66,7 @@ public class Ray {
         Color color = new Color(0.);;
         if (closestTriangle != null) {
             for (Light light : scene.getLights()) {
-                Color contribution = light.contribution(intercept, closestTriangle, scene);
+                Color contribution = light.contribution(this, closestTriangle, scene);
                 color = color.add(contribution);
             }
             color = color.mul(closestTriangle.getColor()).cap();
