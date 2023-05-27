@@ -55,6 +55,14 @@ public class Vec3 {
         );
     }
 
+    public Vec3 mul(double other) {
+        return new Vec3(
+            this.x * other,
+            this.y * other,
+            this.z * other
+        );
+    }
+
     public Vec3 cross(Vec3 other) {
         return new Vec3(
             this.y * other.z - this.z * other.y,

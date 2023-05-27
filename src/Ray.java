@@ -42,12 +42,15 @@ public class Ray {
 
     public Ray reflect(Vec4 plane) {
         Vec3 intercept = intercept(plane);
-        Vec3 normal = plane.toABC();
-        Vec3 newDir = dir.sub(normal.mul(dir.mul(normal).mul(new Vec3(2.))));
+        Vec3 normal = plane.toABC().normalize();
+        // System.out.println("old dir: " + dir);
+        // System.out.println("normal: " + normal);
+        Vec3 newDir = dir.sub(normal.mul(dir.mul(normal).sum()).mul(2));
+        // System.out.println("new dir: " + newDir);
         return new Ray(newDir, intercept);
     }
 
-    public Color getColor(Scene scene) {
+    public Color getColor(Scene scene, int depth) {
         double closestDist = Double.POSITIVE_INFINITY;
         Triangle closestTriangle = null;
 
@@ -70,6 +73,15 @@ public class Ray {
                 color = color.add(contribution);
             }
             color = color.mul(closestTriangle.getTexture().getColor()).cap();
+
+            if (depth > 0 && closestTriangle.getTexture().getReflectivity() > 0.) {
+                // System.out.println("depth: " + depth);
+                Ray reflectedRay = this.reflect(closestTriangle.toPlaneFacing(origin));
+                reflectedRay.origin = reflectedRay.origin.add(reflectedRay.dir.mul(0.0001));
+                Color reflectedColor = reflectedRay.getColor(scene, depth-1);
+                double reflectivity = closestTriangle.getTexture().getReflectivity();
+                color = color.mul(1.-reflectivity).add(reflectedColor.mul(reflectivity));
+            }
         }
         else {
             color = scene.getBackground();

@@ -29,8 +29,28 @@ public class Triangle {
         return line2.cross(line1);
     }
 
+    public Vec3 getNormalFacing(Vec3 point) {
+        Vec3 normal = getNormal();
+        if (normal.mul(point.sub(a)).sum() > 0) {
+            return normal;
+        } else {
+            return normal.mul(-1.);
+        }
+    }
+
     public Vec4 toPlane() {
         Vec3 normal = getNormal();
+        double k = new Vec3(-1.).mul(normal).mul(a).sum();
+        return new Vec4(
+            normal.getX(),
+            normal.getY(),
+            normal.getZ(),
+            k
+        );
+    }
+
+    public Vec4 toPlaneFacing(Vec3 point) {
+        Vec3 normal = getNormalFacing(point);
         double k = new Vec3(-1.).mul(normal).mul(a).sum();
         return new Vec4(
             normal.getX(),

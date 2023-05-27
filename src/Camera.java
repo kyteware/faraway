@@ -24,7 +24,7 @@ public class Camera {
                 Color color = new Color(0.);
                 for (int k=0; k<settings.getSamples(); k++) {
                     Ray aaRay = generateAARay(baseRay, settings.getWidth() / pixelWidth, settings.getHeight() / pixelHeight);
-                    color = color.add(aaRay.getColor(scene));
+                    color = color.add(aaRay.getColor(scene, 25));
                 }
                 color = color.div(settings.getSamples());
                 // gamma
@@ -55,7 +55,7 @@ public class Camera {
                     Math.random() * av,
                     0.
                 )
-            )
+            ).normalize()
         );
     }
 }
