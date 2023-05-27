@@ -2,25 +2,25 @@ public class Triangle {
     private Vec3 a;
     private Vec3 b;
     private Vec3 c;
-    private Color color;
+    private Texture texture;
 
-    public Triangle(Vec3 a, Vec3 b, Vec3 c, Color color) {
+    public Triangle(Vec3 a, Vec3 b, Vec3 c, Texture texture) {
         this.a = a;
         this.b = b;
         this.c = c;
-        this.color = color;
+        this.texture = texture;
     }
 
     public Triangle(Vec3 a, Vec3 b, Vec3 c) {
-        this(a, b, c, new Color(1.));
+        this(a, b, c, new Texture(new Color(1), 0));
     }
 
     public String toString() {
-        return "Triangle(" + a + ", " + b + ", " + c + ", " + color + ")";
+        return "Triangle(" + a + ", " + b + ", " + c + ", " + texture + ")";
     }
 
-    public Color getColor() {
-        return color;
+    public Texture getTexture() {
+        return texture;
     }
 
     public Vec3 getNormal() {

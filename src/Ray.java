@@ -69,7 +69,7 @@ public class Ray {
                 Color contribution = light.contribution(this, closestTriangle, scene);
                 color = color.add(contribution);
             }
-            color = color.mul(closestTriangle.getColor()).cap();
+            color = color.mul(closestTriangle.getTexture().getColor()).cap();
         }
         else {
             color = scene.getBackground();
