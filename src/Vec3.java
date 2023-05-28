@@ -31,11 +31,19 @@ public class Vec3 {
         return z;
     }
 
-    public Vec3 add(Vec3 other) { // TODO: scaler ops for all vec3 maths
+    public Vec3 add(Vec3 other) {
         return new Vec3(
             this.x + other.x,
             this.y + other.y,
             this.z + other.z
+        );
+    }
+
+    public Vec3 add(double other) {
+        return new Vec3(
+            this.x + other,
+            this.y + other,
+            this.z + other
         );
     }
 
@@ -44,6 +52,14 @@ public class Vec3 {
             this.x - other.x,
             this.y - other.y,
             this.z - other.z
+        );
+    }
+
+    public Vec3 sub(double other) {
+        return new Vec3(
+            this.x - other,
+            this.y - other,
+            this.z - other
         );
     }
 
@@ -79,11 +95,27 @@ public class Vec3 {
         );
     }
 
+    public Vec3 div(double other) {
+        return new Vec3(
+            this.x / other,
+            this.y / other,
+            this.z / other
+        );
+    }
+
     public Vec3 pow(Vec3 other) {
         return new Vec3(
             Math.pow(this.x, other.x),
             Math.pow(this.y, other.y),
             Math.pow(this.z, other.z)
+        );
+    }
+
+    public Vec3 pow(double other) {
+        return new Vec3(
+            Math.pow(this.x, other),
+            Math.pow(this.y, other),
+            Math.pow(this.z, other)
         );
     }
 
@@ -95,11 +127,27 @@ public class Vec3 {
         );
     }
 
+    public Vec3 min(double other) {
+        return new Vec3(
+            Math.min(this.x, other),
+            Math.min(this.y, other),
+            Math.min(this.z, other)
+        );
+    }
+
     public Vec3 max(Vec3 other) {
         return new Vec3(
             Math.max(this.x, other.x),
             Math.max(this.y, other.y),
             Math.max(this.z, other.z)
+        );
+    }
+
+    public Vec3 max(double other) {
+        return new Vec3(
+            Math.max(this.x, other),
+            Math.max(this.y, other),
+            Math.max(this.z, other)
         );
     }
 
