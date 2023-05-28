@@ -21,10 +21,18 @@ public class Color {
 
     public Color add(Color other) {
         return new Color(r + other.r, g + other.g, b + other.b);
-    } // TODO: scaler ops for all color math
+    }
+
+    public Color add(double other) {
+        return new Color(r + other, g + other, b + other);
+    }
 
     public Color sub(Color other) {
         return new Color(r - other.r, g - other.g, b - other.b);
+    }
+
+    public Color sub(double other) {
+        return new Color(r - other, g - other, b - other);
     }
 
     public Color dot(Color other) {
