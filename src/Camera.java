@@ -27,15 +27,14 @@ public class Camera {
                     color = color.add(aaRay.getColor(scene, 25));
                 }
                 color = color.div(settings.getSamples());
-                // gamma
-                color = color.pow(1./settings.getGamma()); //TODO: move gamma to own function
+                color = color.gamma(settings.getGamma());
                 pixels[i][j] = color;
             }
         }
 
         return pixels;
     }
-    
+
     private Ray generateBaseRay(int i, int j, int ph, int pw) {
         return new Ray(
             new Vec3(

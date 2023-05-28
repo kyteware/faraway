@@ -67,6 +67,22 @@ public class Color {
         );
     }
 
+    public Color gamma(double gamma) {
+        return new Color(
+            Math.pow(r, 1. / gamma),
+            Math.pow(g, 1. / gamma),
+            Math.pow(b, 1. / gamma)
+        );
+    }
+
+    public Color linear(double gamma) {
+        return new Color(
+            Math.pow(r, gamma),
+            Math.pow(g, gamma),
+            Math.pow(b, gamma)
+        );
+    }
+
     public int encode() {
         int encoded = 0;
         encoded += 255;
