@@ -29,11 +29,11 @@ public class Ray {
     */
     public Vec3 intercept(Plane plane) {
         double rawDist = - (
-            (plane.toABC().mul(origin).sum() + plane.getK()) /
-            plane.toABC().mul(dir).sum()
+            (plane.toABC().dot(origin).sum() + plane.getK()) /
+            plane.toABC().dot(dir).sum()
         );
         if (rawDist >= 0) {
-            return dir.mul(new Vec3(rawDist)).add(origin);
+            return dir.dot(new Vec3(rawDist)).add(origin);
         }
         else {
             return null;
@@ -43,7 +43,7 @@ public class Ray {
     public Ray reflect(Plane plane) {
         Vec3 intercept = intercept(plane);
         Vec3 normal = plane.toABC().normalize();
-        Vec3 newDir = dir.sub(normal.mul(dir.mul(normal).sum()).mul(2));
+        Vec3 newDir = dir.sub(normal.dot(dir.dot(normal).sum()).dot(2));
         return new Ray(newDir, intercept);
     }
 
@@ -69,15 +69,15 @@ public class Ray {
                 Color contribution = light.contribution(this, closestTriangle, scene);
                 color = color.add(contribution);
             }
-            color = color.mul(closestTriangle.getTexture().getColor()).cap();
+            color = color.dot(closestTriangle.getTexture().getColor()).cap();
 
             if (depth > 0 && closestTriangle.getTexture().getReflectivity() > 0.) {
                 // System.out.println("depth: " + depth);
                 Ray reflectedRay = this.reflect(closestTriangle.toPlaneFacing(origin));
-                reflectedRay.origin = reflectedRay.origin.add(reflectedRay.dir.mul(0.0001));
+                reflectedRay.origin = reflectedRay.origin.add(reflectedRay.dir.dot(0.0001));
                 Color reflectedColor = reflectedRay.getColor(scene, depth-1);
                 double reflectivity = closestTriangle.getTexture().getReflectivity();
-                color = color.mul(1.-reflectivity).add(reflectedColor.mul(reflectivity));
+                color = color.dot(1.-reflectivity).add(reflectedColor.dot(reflectivity));
             }
         }
         else {

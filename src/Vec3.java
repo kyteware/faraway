@@ -63,7 +63,7 @@ public class Vec3 {
         );
     }
 
-    public Vec3 mul(Vec3 other) {
+    public Vec3 dot(Vec3 other) {
         return new Vec3(
             this.x * other.x,
             this.y * other.y,
@@ -71,7 +71,7 @@ public class Vec3 {
         );
     }
 
-    public Vec3 mul(double other) {
+    public Vec3 dot(double other) {
         return new Vec3(
             this.x * other,
             this.y * other,

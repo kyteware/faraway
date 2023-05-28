@@ -27,11 +27,11 @@ public class Color {
         return new Color(r - other.r, g - other.g, b - other.b);
     }
 
-    public Color mul(Color other) {
+    public Color dot(Color other) {
         return new Color(r * other.r, g * other.g, b * other.b);
     }
 
-    public Color mul(double other) {
+    public Color dot(double other) {
         return new Color(r * other, g * other, b * other);
     }
 

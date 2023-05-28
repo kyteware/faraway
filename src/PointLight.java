@@ -34,14 +34,14 @@ public class PointLight extends Light {
         Vec3 dirToLight = intercept.sub(position).normalize();
 
         Vec3 normal = currentTriangle.getNormal().normalize();
-        if (normal.mul(oldRay.getDir().normalize()).sum() < 0) {
-            normal = normal.mul(new Vec3(-1.));
+        if (normal.dot(oldRay.getDir().normalize()).sum() < 0) {
+            normal = normal.dot(new Vec3(-1.));
         }
 
-        double strength = normal.mul(dirToLight).sum();
+        double strength = normal.dot(dirToLight).sum();
         if (strength <= 0) {
             return new Color(0.);
         }
-        return color.mul(strength * lightIntensity);
+        return color.dot(strength * lightIntensity);
     }
 }

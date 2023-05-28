@@ -8,6 +8,6 @@ public class AmbientLight extends Light {
     }
 
     public Color contribution(Ray oldRay, Triangle currentTriangle, Scene scene) {
-        return color.mul(intensity);
+        return color.dot(intensity);
     }
 }

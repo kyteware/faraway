@@ -31,16 +31,16 @@ public class Triangle {
 
     public Vec3 getNormalFacing(Vec3 point) {
         Vec3 normal = getNormal();
-        if (normal.mul(point.sub(a)).sum() > 0) {
+        if (normal.dot(point.sub(a)).sum() > 0) {
             return normal;
         } else {
-            return normal.mul(-1.);
+            return normal.dot(-1.);
         }
     }
 
     public Plane toPlane() {
         Vec3 normal = getNormal();
-        double k = new Vec3(-1.).mul(normal).mul(a).sum();
+        double k = new Vec3(-1.).dot(normal).dot(a).sum();
         return new Plane(
             normal.getX(),
             normal.getY(),
@@ -51,7 +51,7 @@ public class Triangle {
 
     public Plane toPlaneFacing(Vec3 point) {
         Vec3 normal = getNormalFacing(point);
-        double k = new Vec3(-1.).mul(normal).mul(a).sum();
+        double k = new Vec3(-1.).dot(normal).dot(a).sum();
         return new Plane(
             normal.getX(),
             normal.getY(),
@@ -70,7 +70,7 @@ public class Triangle {
             Vec3 line = p2.sub(p3);
             Vec3 check = line.cross(point.sub(p3));
             Vec3 known = line.cross(p1.sub(p3));
-            if (check.mul(known).sum() <= 0) {
+            if (check.dot(known).sum() <= 0) {
                 return false;
             }
         }
