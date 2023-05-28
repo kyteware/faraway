@@ -38,10 +38,10 @@ public class Triangle {
         }
     }
 
-    public Vec4 toPlane() {
+    public Plane toPlane() {
         Vec3 normal = getNormal();
         double k = new Vec3(-1.).mul(normal).mul(a).sum();
-        return new Vec4(
+        return new Plane(
             normal.getX(),
             normal.getY(),
             normal.getZ(),
@@ -49,10 +49,10 @@ public class Triangle {
         );
     }
 
-    public Vec4 toPlaneFacing(Vec3 point) {
+    public Plane toPlaneFacing(Vec3 point) {
         Vec3 normal = getNormalFacing(point);
         double k = new Vec3(-1.).mul(normal).mul(a).sum();
-        return new Vec4(
+        return new Plane(
             normal.getX(),
             normal.getY(),
             normal.getZ(),

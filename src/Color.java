@@ -21,7 +21,7 @@ public class Color {
 
     public Color add(Color other) {
         return new Color(r + other.r, g + other.g, b + other.b);
-    }
+    } // TODO: scaler ops for all color math
 
     public Color sub(Color other) {
         return new Color(r - other.r, g - other.g, b - other.b);

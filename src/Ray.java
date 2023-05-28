@@ -27,7 +27,7 @@ public class Ray {
     /**
      * returns null if intercept behind
     */
-    public Vec3 intercept(Vec4 plane) {
+    public Vec3 intercept(Plane plane) {
         double rawDist = - (
             (plane.toABC().mul(origin).sum() + plane.getK()) /
             plane.toABC().mul(dir).sum()
@@ -40,13 +40,10 @@ public class Ray {
         }
     }
 
-    public Ray reflect(Vec4 plane) {
+    public Ray reflect(Plane plane) {
         Vec3 intercept = intercept(plane);
         Vec3 normal = plane.toABC().normalize();
-        // System.out.println("old dir: " + dir);
-        // System.out.println("normal: " + normal);
         Vec3 newDir = dir.sub(normal.mul(dir.mul(normal).sum()).mul(2));
-        // System.out.println("new dir: " + newDir);
         return new Ray(newDir, intercept);
     }
 
@@ -55,7 +52,7 @@ public class Ray {
         Triangle closestTriangle = null;
 
         for (Triangle t : scene.getTriangles()) {
-            Vec4 plane = t.toPlane();
+            Plane plane = t.toPlane();
             Vec3 localIntercept = this.intercept(plane);
             if (localIntercept != null) {
                 double distance = origin.distance(localIntercept);

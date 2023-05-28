@@ -31,7 +31,7 @@ public class Vec3 {
         return z;
     }
 
-    public Vec3 add(Vec3 other) {
+    public Vec3 add(Vec3 other) { // TODO: scaler ops for all vec3 maths
         return new Vec3(
             this.x + other.x,
             this.y + other.y,

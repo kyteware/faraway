@@ -1,17 +1,17 @@
-public class Vec4 {
+public class Plane { //TODO: rename to Plane
     private double a;
     private double b;
     private double c;
     private double k;
 
-    public Vec4(double a, double b, double c, double k) {
+    public Plane(double a, double b, double c, double k) {
         this.a = a;
         this.b = b;
         this.c = c;
         this.k = k;
     }
 
-    public Vec4(double all) {
+    public Plane(double all) {
         a = all;
         b = all;
         c = all;
@@ -42,8 +42,8 @@ public class Vec4 {
         return new Vec3(a, b, c);
     }
 
-    public Vec4 add(Vec4 other) {
-        return new Vec4(
+    public Plane add(Plane other) { // TODO: scaler ops for all vec4 math
+        return new Plane(
             this.a + other.a,
             this.b + other.b,
             this.c + other.c,
@@ -51,8 +51,8 @@ public class Vec4 {
         );
     }
 
-    public Vec4 sub(Vec4 other) {
-        return new Vec4(
+    public Plane sub(Plane other) {
+        return new Plane(
             this.a - other.a,
             this.b - other.b,
             this.c - other.c,
@@ -60,8 +60,8 @@ public class Vec4 {
         );
     }
 
-    public Vec4 mul(Vec4 other) {
-        return new Vec4(
+    public Plane mul(Plane other) {
+        return new Plane(
             this.a * other.a,
             this.b * other.b,
             this.c * other.c,
@@ -69,8 +69,8 @@ public class Vec4 {
         );
     }
 
-    public Vec4 div(Vec4 other) {
-        return new Vec4(
+    public Plane div(Plane other) {
+        return new Plane(
             this.a / other.a,
             this.b / other.b,
             this.c / other.c,
