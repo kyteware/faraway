@@ -1,19 +1,7 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        // if (true) {
-        //     Ray test = new Ray(
-        //         new Vec3(
-        //             0, 0, 1
-        //         ), 
-        //         new Vec3(0)
-        //     );
-        //     Vec4 testPlane = new Vec4(
-        //         0, 1, -1, 1
-        //     );
-        //     System.out.println(test.reflect(testPlane));
-        //     return;
-        // }
-        Texture floorTexture = new Texture(new Color(1), 0.5);
+        Texture floorTexture = new Texture(new Color(1), 0.75);
+        Texture floor2Texture = new Texture(new Color(1), 0.25);
         Texture greenTexture = new Texture(new Color(0.5, 1, 0.5), 0);
 
         Triangle floor1 = new Triangle(
@@ -26,12 +14,12 @@ public class App {
             new Vec3(-1, 1, 5),
             new Vec3(1, 1, 5),
             new Vec3(-1, -1, 3),
-            floorTexture
+            floor2Texture
         );
         Triangle greenTriangle = new Triangle(
-            new Vec3(0.7, 0.7, 3),
-            new Vec3(-0.7, 0.7, 3),
-            new Vec3(0.7, 2, 3.5),
+            new Vec3(0.5, 0.2, 3.5),
+            new Vec3(-0.9, 0.2, 3.5),
+            new Vec3(0.5, 1.5, 4),
             greenTexture
         );
 
