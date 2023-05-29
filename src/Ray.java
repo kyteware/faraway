@@ -78,7 +78,6 @@ public class Ray {
             color = color.dot(closestTriangle.getTexture().getColor()).cap();
 
             if (depth > 0 && closestTriangle.getTexture().getReflectivity() > 0.) {
-                // System.out.println("depth: " + depth);
                 Ray reflectedRay = this.reflect(closestTriangle.toPlaneFacing(origin));
                 reflectedRay.origin = reflectedRay.origin.add(reflectedRay.dir.dot(0.0001));
                 Color reflectedColor = reflectedRay.getColor(scene, depth-1);
