@@ -35,7 +35,7 @@ public class PointLight extends Light {
 
         Vec3 normal = currentTriangle.getNormal().normalize();
         if (normal.dot(oldRay.getDir().normalize()).sum() < 0) {
-            normal = normal.dot(new Vec3(-1.));
+            normal = normal.dot(-1.);
         }
 
         double strength = normal.dot(dirToLight).sum();

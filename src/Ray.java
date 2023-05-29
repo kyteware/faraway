@@ -33,7 +33,7 @@ public class Ray {
             plane.toABC().dot(dir).sum()
         );
         if (rawDist >= 0) {
-            return dir.dot(new Vec3(rawDist)).add(origin);
+            return dir.dot(rawDist).add(origin);
         }
         else {
             return null;
