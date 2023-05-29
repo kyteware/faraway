@@ -1,4 +1,4 @@
-public class Plane { //TODO: rename to Plane
+public class Plane {
     private double a;
     private double b;
     private double c;
@@ -42,7 +42,7 @@ public class Plane { //TODO: rename to Plane
         return new Vec3(a, b, c);
     }
 
-    public Plane add(Plane other) { // TODO: scaler ops for all vec4 math
+    public Plane add(Plane other) {
         return new Plane(
             this.a + other.a,
             this.b + other.b,
