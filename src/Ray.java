@@ -40,18 +40,11 @@ public class Ray {
         }
     }
 
-    public Ray reflect(Plane plane) {
-        Vec3 intercept = intercept(plane);
-        Vec3 normal = plane.toABC().normalize();
-        Vec3 newDir = dir.sub(normal.dot(dir.dot(normal).sum()).dot(2));
-        return new Ray(newDir, intercept);
-    }
-
-    public Color getColor(Scene scene, int depth) {
+    public Triangle closestTriangle(Triangle[] triangles) {
         double closestDist = Double.POSITIVE_INFINITY;
         Triangle closestTriangle = null;
 
-        for (Triangle t : scene.getTriangles()) {
+        for (Triangle t : triangles) {
             Plane plane = t.toPlane();
             Vec3 localIntercept = this.intercept(plane);
             if (localIntercept != null) {
@@ -62,6 +55,19 @@ public class Ray {
                 }
             }
         }
+
+        return closestTriangle;
+    }
+
+    public Ray reflect(Plane plane) {
+        Vec3 intercept = intercept(plane);
+        Vec3 normal = plane.toABC().normalize();
+        Vec3 newDir = dir.sub(normal.dot(dir.dot(normal).sum()).dot(2));
+        return new Ray(newDir, intercept);
+    }
+
+    public Color getColor(Scene scene, int depth) {
+        Triangle closestTriangle = closestTriangle(scene.getTriangles());
 
         Color color = new Color(0.);;
         if (closestTriangle != null) {

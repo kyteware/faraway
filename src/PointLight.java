@@ -16,7 +16,7 @@ public class PointLight extends Light {
     public Color contribution(Ray oldRay, Triangle currentTriangle, Scene scene) {
         Vec3 intercept = oldRay.intercept(currentTriangle.toPlane());
         double distanceToLight = intercept.distance(position);
-
+        
         for (Triangle t : scene.getTriangles()) {
             if (currentTriangle == t) {
                 continue;
