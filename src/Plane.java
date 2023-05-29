@@ -51,6 +51,15 @@ public class Plane { //TODO: rename to Plane
         );
     }
 
+    public Plane add(double other) {
+        return new Plane(
+            this.a + other,
+            this.b + other,
+            this.c + other,
+            this.k + other
+        );
+    }
+
     public Plane sub(Plane other) {
         return new Plane(
             this.a - other.a,
@@ -60,12 +69,30 @@ public class Plane { //TODO: rename to Plane
         );
     }
 
-    public Plane mul(Plane other) {
+    public Plane sub(double other) {
+        return new Plane(
+            this.a - other,
+            this.b - other,
+            this.c - other,
+            this.k - other
+        );
+    }
+
+    public Plane dot(Plane other) {
         return new Plane(
             this.a * other.a,
             this.b * other.b,
             this.c * other.c,
             this.k * other.k
+        );
+    }
+
+    public Plane dot(double other) {
+        return new Plane(
+            this.a * other,
+            this.b * other,
+            this.c * other,
+            this.k * other
         );
     }
 
@@ -75,6 +102,15 @@ public class Plane { //TODO: rename to Plane
             this.b / other.b,
             this.c / other.c,
             this.k + other.k
+        );
+    }
+
+    public Plane div(double other) {
+        return new Plane(
+            this.a / other,
+            this.b / other,
+            this.c / other,
+            this.k / other
         );
     }
 }
