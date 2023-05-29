@@ -33,7 +33,7 @@ public class PointLight extends Light {
         double lightIntensity = intensity / Math.pow(distanceToLight, 2);
         Vec3 dirToLight = intercept.sub(position).normalize();
 
-        Vec3 normal = currentTriangle.getNormal().normalize();
+        Vec3 normal = currentTriangle.getNormal();
         if (normal.dot(oldRay.getDir().normalize()).sum() < 0) {
             normal = normal.dot(-1.);
         }

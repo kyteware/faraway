@@ -26,7 +26,7 @@ public class Triangle {
     public Vec3 getNormal() {
         Vec3 line1 = b.sub(a);
         Vec3 line2 = c.sub(a);
-        return line2.cross(line1);
+        return line2.cross(line1).normalize();
     }
 
     public Vec3 getNormalFacing(Vec3 point) {
