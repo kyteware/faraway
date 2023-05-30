@@ -13,6 +13,10 @@ public class CameraSettings {
         pixelHeight = 1080;
     }
 
+    public String toString() {
+        return "CameraSettings(" + gamma + ", " + ratio + ", " + length + ", " + samples + ", " + pixelHeight + ")";
+    }
+
     public double getRatio() {
         return ratio;
     }

@@ -74,7 +74,7 @@ public class Ray {
             for (Light light : scene.getLights()) {
                 Color contribution = light.contribution(this, closestTriangle, scene);
                 color = color.add(contribution);
-            }
+            }  
             color = color.dot(closestTriangle.getTexture().getColor()).cap();
 
             if (depth > 0 && closestTriangle.getTexture().getReflectivity() > 0.) {

@@ -16,6 +16,28 @@ public class Scene {
         this.lights = lights;
     }
 
+    public String toString() {
+        String result = "Scene(\n";
+        result += "  cameras: [\n";
+        for (Camera camera : cameras) {
+            result += "    " + camera + "\n";
+        }
+        result += "  ],\n";
+        result += "  triangles: [\n";
+        for (Triangle triangle : triangles) {
+            result += "    " + triangle + "\n";
+        }
+        result += "  ],\n";
+        result += "  lights: [\n";
+        for (Light light : lights) {
+            result += "    " + light + "\n";
+        }
+        result += "  ],\n";
+        result += "  background: " + background + "\n";
+        result += ")";
+        return result;
+    }
+
     public Camera[] getCameras() {
         return cameras;
     }

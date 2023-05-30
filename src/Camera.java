@@ -9,6 +9,10 @@ public class Camera {
         this.settings = new CameraSettings();
     }
 
+    public String toString() {
+        return "Camera(" + dir + ", " + position + ")";
+    }
+
     public CameraSettings getSettings() {
         return settings;
     }

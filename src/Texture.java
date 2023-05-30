@@ -7,6 +7,10 @@ public class Texture {
         this.reflectivity = reflectivity;
     }
 
+    public String toString() {
+        return "Texture(" + color + ", " + reflectivity + ")";
+    }
+
     public Color getColor() {
         return this.color;
     }

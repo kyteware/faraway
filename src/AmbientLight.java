@@ -7,6 +7,10 @@ public class AmbientLight extends Light {
         this.intensity = intensity;
     }
 
+    public String toString() {
+        return "AmbientLight(" + color + ", " + intensity + ")";
+    }
+
     public Color contribution(Ray oldRay, Triangle currentTriangle, Scene scene) {
         return color.dot(intensity);
     }
