@@ -31,7 +31,9 @@ public class App {
         Triangle[] triangles = { floor1, floor2, greenTriangle };
 
         Camera c = new Camera(
-            new Vec3(0.)
+            new Vec3(0.),
+            0,
+            0
         );
 
         c.getSettings().setSamples(25);

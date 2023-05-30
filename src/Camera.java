@@ -1,14 +1,18 @@
 public class Camera {
     private Vec3 position;
     private CameraSettings settings;
+    private double yaw;
+    private double pitch;
 
-    public Camera(Vec3 position) {
+    public Camera(Vec3 position, double yaw, double pitch) {
         this.position = position;
         this.settings = new CameraSettings();
+        this.yaw = yaw;
+        this.pitch = pitch;
     }
 
     public String toString() {
-        return "Camera(" + position + ")";
+        return "Camera(" + position + ", " + yaw + ", " + pitch + ")";
     }
 
     public CameraSettings getSettings() {
@@ -19,9 +23,9 @@ public class Camera {
         int pixelHeight = settings.getPixelHeight();
         int pixelWidth = settings.getPixelWidth();
 
-        double startYaw = -1 * settings.getFOV() / 2;
+        double startYaw = yaw + -1 * settings.getFOV() / 2;
         double yawIncrement = settings.getFOV() / pixelWidth;
-        double startPitch = startYaw / settings.getRatio() * -1;
+        double startPitch = pitch + startYaw / settings.getRatio() * -1;
         double pitchDecrement = (settings.getFOV() / settings.getRatio()) / pixelHeight;
         System.out.println("Rendering " + pixelHeight + "x" + pixelWidth + " image with start yaw" + startYaw + " and yaw increment  " + yawIncrement + " and start pitch " + startPitch+ " and pitch decrement " + pitchDecrement);
 
@@ -29,13 +33,13 @@ public class Camera {
 
         for (int i=0; i<pixelHeight; i++) {
             for (int j=0; j<pixelWidth; j++) {
-                double pitch = startPitch - i * pitchDecrement;
-                double yaw = startYaw + j * yawIncrement;
+                double localPitch = startPitch - i * pitchDecrement;
+                double localYaw = startYaw + j * yawIncrement;
                 // System.out.println("Rendering pixel (" + i + ", " + j + ") with yaw " + yaw + " and pitch " + pitch);
                 Color color = new Color(0.);
                 // System.out.println("Ray: " + generateRay(yaw, pitch));
                 for (int k=0; k<settings.getSamples(); k++) {
-                    Ray ray = Ray.fromYawPitch(yaw + Math.random() * yawIncrement, pitch - Math.random() * pitchDecrement, position);
+                    Ray ray = Ray.fromYawPitch(localYaw + Math.random() * yawIncrement, localPitch - Math.random() * pitchDecrement, position);
                     color = color.add(ray.getColor(scene, 25));
                 }
                 color = color.div(settings.getSamples());
