@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class Ray {
     private Vec3 dir;
     private Vec3 origin;

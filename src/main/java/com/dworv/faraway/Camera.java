@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class Camera {
     private Vec3 position;
     private CameraSettings settings;

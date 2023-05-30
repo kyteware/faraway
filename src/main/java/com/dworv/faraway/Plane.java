@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class Plane {
     private double a;
     private double b;

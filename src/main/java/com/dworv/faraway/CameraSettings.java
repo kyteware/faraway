@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class CameraSettings {
     private double gamma;
     private double ratio;

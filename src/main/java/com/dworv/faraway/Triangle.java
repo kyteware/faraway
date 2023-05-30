@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class Triangle {
     private Vec3 a;
     private Vec3 b;

@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 import java.io.File;
 
 public class Utils {

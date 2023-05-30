@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

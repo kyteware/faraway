@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class Color {
     private double r;
     private double g;

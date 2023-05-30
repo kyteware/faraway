@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class Vec3 {
     private double x;
     private double y;

@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class PointLight extends Light {
     Vec3 position;
     Color color;

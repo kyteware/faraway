@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class App {
     public static void main(String[] args) throws Exception {
         // if (true) {

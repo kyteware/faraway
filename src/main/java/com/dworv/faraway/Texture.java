@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class Texture {
     private Color color;
     private double reflectivity;

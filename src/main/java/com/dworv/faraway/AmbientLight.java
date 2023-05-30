@@ -1,3 +1,5 @@
+package com.dworv.faraway;
+
 public class AmbientLight extends Light {
     Color color;
     double intensity;
