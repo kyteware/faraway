@@ -35,7 +35,7 @@ public class Camera {
                 Color color = new Color(0.);
                 // System.out.println("Ray: " + generateRay(yaw, pitch));
                 for (int k=0; k<settings.getSamples(); k++) {
-                    Ray ray = generateRay(yaw + Math.random() * yawIncrement, pitch - Math.random() * pitchDecrement);
+                    Ray ray = Ray.fromYawPitch(yaw + Math.random() * yawIncrement, pitch - Math.random() * pitchDecrement, position);
                     color = color.add(ray.getColor(scene, 25));
                 }
                 color = color.div(settings.getSamples());
@@ -45,16 +45,5 @@ public class Camera {
         }
 
         return pixels;
-    }
-
-    public Ray generateRay(double yaw, double pitch) {
-        return new Ray(
-            new Vec3(
-                Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)),
-                Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)),
-                Math.sin(Math.toRadians(pitch))
-            ),
-            position
-        );
     }
 }

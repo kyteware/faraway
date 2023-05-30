@@ -12,6 +12,17 @@ public class Ray {
         this.origin = new Vec3(0.);
     }
 
+    public static Ray fromYawPitch(double yaw, double pitch, Vec3 position) {
+        return new Ray(
+            new Vec3(
+                Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)),
+                Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)),
+                Math.sin(Math.toRadians(pitch))
+            ),
+            position
+        );
+    }
+
     public String toString() {
         return "Ray(" + this.dir + ", " + this.origin + ")";
     }
