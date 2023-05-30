@@ -1,20 +1,20 @@
 public class CameraSettings {
     private double gamma;
     private double ratio;
-    private double length;
+    private double fov;
     private double samples;
     private int pixelHeight;
 
     public CameraSettings() {
         gamma = 2;
         ratio = 16./9.;
-        length = 1;
+        fov = 90;
         samples = 50.;
         pixelHeight = 1080;
     }
 
     public String toString() {
-        return "CameraSettings(" + gamma + ", " + ratio + ", " + length + ", " + samples + ", " + pixelHeight + ")";
+        return "CameraSettings(" + gamma + ", " + ratio + ", " + fov + ", " + samples + ", " + pixelHeight + ")";
     }
 
     public double getRatio() {
@@ -33,12 +33,12 @@ public class CameraSettings {
         this.gamma = gamma;
     }
 
-    public double getLensLength() {
-        return length;
+    public double getFOV() {
+        return fov;
     }
 
-    public void setLensLength(double length) {
-        this.length = length;
+    public void setFOV(double fov) {
+        this.fov = fov;
     }
 
     public double getHeight() {

@@ -1,16 +1,14 @@
 public class Camera {
     private Vec3 position;
-    private Vec3 dir;
     private CameraSettings settings;
 
-    public Camera(Vec3 dir, Vec3 position) {
-        this.dir = dir;
+    public Camera(Vec3 position) {
         this.position = position;
         this.settings = new CameraSettings();
     }
 
     public String toString() {
-        return "Camera(" + dir + ", " + position + ")";
+        return "Camera(" + position + ")";
     }
 
     public CameraSettings getSettings() {
@@ -20,15 +18,25 @@ public class Camera {
     public Color[][] render(Scene scene) {
         int pixelHeight = settings.getPixelHeight();
         int pixelWidth = settings.getPixelWidth();
+
+        double startYaw = -1 * settings.getFOV() / 2;
+        double yawIncrement = settings.getFOV() / pixelWidth;
+        double startPitch = startYaw / settings.getRatio() * -1;
+        double pitchDecrement = (settings.getFOV() / settings.getRatio()) / pixelHeight;
+        System.out.println("Rendering " + pixelHeight + "x" + pixelWidth + " image with start yaw" + startYaw + " and yaw increment  " + yawIncrement + " and start pitch " + startPitch+ " and pitch decrement " + pitchDecrement);
+
         Color[][] pixels = new Color[pixelHeight][pixelWidth];
 
         for (int i=0; i<pixelHeight; i++) {
             for (int j=0; j<pixelWidth; j++) {
-                Ray baseRay = generateBaseRay(i, j, pixelHeight, pixelWidth);
+                double pitch = startPitch - i * pitchDecrement;
+                double yaw = startYaw + j * yawIncrement;
+                // System.out.println("Rendering pixel (" + i + ", " + j + ") with yaw " + yaw + " and pitch " + pitch);
                 Color color = new Color(0.);
+                // System.out.println("Ray: " + generateRay(yaw, pitch));
                 for (int k=0; k<settings.getSamples(); k++) {
-                    Ray aaRay = generateAARay(baseRay, settings.getWidth() / pixelWidth, settings.getHeight() / pixelHeight);
-                    color = color.add(aaRay.getColor(scene, 25));
+                    Ray ray = generateRay(yaw + Math.random() * yawIncrement, pitch - Math.random() * pitchDecrement);
+                    color = color.add(ray.getColor(scene, 25));
                 }
                 color = color.div(settings.getSamples());
                 color = color.gamma(settings.getGamma());
@@ -39,26 +47,14 @@ public class Camera {
         return pixels;
     }
 
-    private Ray generateBaseRay(int i, int j, int ph, int pw) {
+    public Ray generateRay(double yaw, double pitch) {
         return new Ray(
             new Vec3(
-                dir.getX() + (double)(j-pw/2) / (pw/settings.getWidth()),
-                dir.getY() - (double)(i-ph/2) / (ph/settings.getHeight()),
-                1.
+                Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)),
+                Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)),
+                Math.sin(Math.toRadians(pitch))
             ),
             position
-        );
-    }
-
-    private Ray generateAARay(Ray base, double ah, double av) {
-        return new Ray(
-            base.getDir().add(
-                new Vec3(
-                    Math.random() * ah,
-                    Math.random() * av,
-                    0.
-                )
-            ).normalize()
         );
     }
 }
