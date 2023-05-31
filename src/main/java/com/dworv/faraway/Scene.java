@@ -67,10 +67,9 @@ public class Scene {
             String path = "outputs/cam" + i + ".png";
             double start = System.currentTimeMillis();
             Color[][] pixels = cameras[i].render(this);
-            System.out.println("Rendered in " + (System.currentTimeMillis() - start) + "ms");
             start = System.currentTimeMillis();
             Draw.drawImage(pixels, path);
-            System.out.println("Drawn in " + (System.currentTimeMillis() - start) + "ms");
+            System.err.println("Drawn in " + (System.currentTimeMillis() - start) + "ms");
         }
     }
 }

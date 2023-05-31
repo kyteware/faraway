@@ -21,6 +21,18 @@ public class Triangle {
         return "Triangle(" + a + ", " + b + ", " + c + ", " + texture + ")";
     }
 
+    public Vec3 getA() {
+        return a;
+    }
+
+    public Vec3 getB() {
+        return b;
+    }
+
+    public Vec3 getC() {
+        return c;
+    }
+
     public Texture getTexture() {
         return texture;
     }
