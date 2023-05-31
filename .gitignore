@@ -1,3 +1,5 @@
 bin
 output*
 target*
+test.fscene
+.vscode*
