@@ -1,6 +1,6 @@
 package com.dworv.faraway;
 
-public class Triangle {
+public class Triangle extends Shape {
     private Vec3 a;
     private Vec3 b;
     private Vec3 c;
@@ -89,5 +89,10 @@ public class Triangle {
             }
         }
         return true;
+    }
+
+    @Override
+    Triangle[] toTriangles() {
+        return new Triangle[] { this };
     }
 }

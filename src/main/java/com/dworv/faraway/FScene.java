@@ -56,6 +56,8 @@ class ShapeDeserializer implements JsonDeserializer<Shape> {
         switch (type) {
             case "cube":
                 return context.deserialize(jsonObject, Cube.class);
+            case "triangle":
+                return context.deserialize(jsonObject, Triangle.class);
             default:
                 throw new JsonParseException("Unknown shape type: " + type);
         }
