@@ -29,8 +29,6 @@ public class Camera {
         double yawIncrement = settings.getFOV() / pixelWidth;
         double startPitch = pitch + startYaw / settings.getRatio() * -1;
         double pitchDecrement = (settings.getFOV() / settings.getRatio()) / pixelHeight;
-        System.out.println("Rendering " + pixelHeight + "x" + pixelWidth + " image with start yaw" + startYaw + " and yaw increment  " + yawIncrement + " and start pitch " + startPitch+ " and pitch decrement " + pitchDecrement);
-
         Color[][] pixels = new Color[pixelHeight][pixelWidth];
 
         for (int i=0; i<pixelHeight; i++) {

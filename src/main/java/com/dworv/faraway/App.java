@@ -1,7 +1,5 @@
 package com.dworv.faraway;
 
-import com.google.gson.Gson;
-
 public class App {
     public static void main(String[] args) throws Exception {
         // Texture floorTexture = new Texture(new Color(1), 0.75);
