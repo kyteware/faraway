@@ -1,0 +1,146 @@
+// Texture floorTexture = new Texture(new Color(1), 0.75);
+        // Texture floor2Texture = new Texture(new Color(1), 0.25);
+        // Texture greenTexture = new Texture(new Color(0.5, 1, 0.5), 0);
+
+        // Triangle floor1 = new Triangle(
+        //     new Vec3(3, -1, -1),
+        //     new Vec3(3, 1, -1),
+        //     new Vec3(5, 1, 1),
+        //     floorTexture
+        // );
+        // Triangle floor2 = new Triangle(
+        //     new Vec3(5, -1, 1),
+        //     new Vec3(5, 1, 1),
+        //     new Vec3(3, -1, -1),
+        //     floor2Texture
+        // );
+        // Triangle greenTriangle = new Triangle(
+        //     new Vec3(3.5, 0.5, 0.2),
+        //     new Vec3(3.5, -0.9, 0.2),
+        //     new Vec3(4, 0.5, 1.5),
+        //     greenTexture
+        // );
+
+        // Triangle[] triangles = { floor1, floor2, greenTriangle };
+
+        // Camera c = new Camera(
+        //     new Vec3(0.),
+        //     0,
+        //     0
+        // );
+
+        // c.getSettings().setSamples(25);
+        // c.getSettings().setPixelHeight(720);
+        // c.getSettings().setFOV(110);
+
+        // Camera[] cameras = { c };
+
+        // Color background = new Color(0.2, 0.3, 0.5);
+
+        // Light l1 = new PointLight(
+        //     new Vec3(-1.5, 0, 0),
+        //     new Color(1, 1, 1),
+        //     1.5
+        // );
+
+        // Light l2 = new AmbientLight(background, 0.1);
+
+        // Light[] lights = { l1, l2 };
+
+{
+    "cameras": [
+        {
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "settings": {
+                "gamma": 2.0,
+                "ratio": 1.7777777777777777,
+                "fov": 90.0,
+                "samples": 10.0,
+                "pixelHeight": 720
+            },
+            "yaw": 0.0,
+            "pitch": 0.0
+        }
+    ],
+    "lights": [
+        {
+            "type": "ambient",
+            "intensity": 0.1,
+            "color": {
+                "r": 0.2,
+                "g": 0.3,
+                "b": 0.5
+            }
+        },
+        {
+            "type": "point",
+            "intensity": 0.5,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+            },
+            "position": {
+                "x": 1.5,
+                "z": 1.0
+            }
+        },
+        {
+            "type": "point",
+            "intensity": 0.5,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+            },
+            "position": {
+                "x": 1.5,
+                "z": 1.5
+            }
+        }
+    ],
+    "shapes": [
+        {
+            "type": "triangle",
+            "position": {},
+            "a": {"x": 3.0, "y": -1.0, "z": -1.0},
+            "b": {"x": 3.0, "y": 1.0, "z": -1.0},
+            "c": {"x": 5.0, "y": 1.0, "z": 1.0},
+            "texture": {
+                "color": {"r": 1.0, "g": 1.0, "b": 1.0},
+                "reflectivity": 0.75
+            }
+        },
+        {
+            "type": "triangle",
+            "position": {},
+            "a": {"x": 5.0, "y": -1.0, "z": 1.0},
+            "b": {"x": 5.0, "y": 1.0, "z": 1.0},
+            "c": {"x": 3.0, "y": -1.0, "z": -1.0},
+            "texture": {
+                "color": {"r": 1.0, "g": 1.0, "b": 1.0},
+                "reflectivity": 0.25
+            }
+        },
+        {
+            "type": "triangle",
+            "position": {},
+            "a": {"x": 3.5, "y": 0.5, "z": 0.2},
+            "b": {"x": 3.5, "y": -0.9, "z": 0.2},
+            "c": {"x": 4.0, "y": 0.5, "z": 1.5},
+            "texture": {
+                "color": {"r": 0.5, "g": 1.0, "b": 0.5},
+                "reflectivity": 0.0
+            }
+        }
+    ],
+    "background": {
+        "r": 0.2,
+        "g": 0.3,
+        "b": 0.5
+    }
+}
