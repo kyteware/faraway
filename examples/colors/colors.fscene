@@ -1,0 +1,76 @@
+{
+    "cameras": [
+        {
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "settings": {
+                "gamma": 2.0,
+                "ratio": 1.7777777777777777,
+                "fov": 70.0,
+                "samples": 10.0,
+                "pixelHeight": 720
+            },
+            "yaw": 0.0,
+            "pitch": 0.0
+        }
+    ],
+    "lights": [
+        {
+            "type": "point",
+            "intensity": 1.0,
+            "color": {
+                "r": 1.0
+            },
+            "position": {
+                "x": 4.0,
+                "y": 1.0,
+                "z": 0.7
+            }
+        },
+        {
+            "type": "point",
+            "intensity": 1.0,
+            "color": {
+                "g": 1.0
+            },
+            "position": {
+                "x": 4.0,
+                "y": -1.0,
+                "z": 0.7
+            }
+        },
+        {
+            "type": "point",
+            "intensity": 1.0,
+            "color": {
+                "b": 1.0
+            },
+            "position": {
+                "x": 4.0,
+                "y": 0.0,
+                "z": -0.7
+            }
+        }
+    ],
+    "shapes": [
+        {
+            "type": "triangle",
+            "position": {},
+            "a": {"x": 5.0, "y": -15.0, "z": -10.0},
+            "b": {"x": 5.0, "y": 10.0, "z": -10.0},
+            "c": {"x": 5.0, "y": 1.0, "z": 10.0},
+            "texture": {
+                "color": {"r": 1.0, "g": 1.0, "b": 1.0},
+                "reflectivity": 0.0
+            }
+        }
+    ],
+    "background": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+    }
+}
