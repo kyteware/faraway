@@ -13,12 +13,48 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+/**
+ * A file representation of a shene.
+ * <p>
+ * This is used to read a scene from a file for rendering.
+ * @author github.com/dworv
+ */
 public class FScene {
+    /**
+     * The cameras in the scene.
+     * <p>
+     * This is an array of Camera objects.
+     */
     Camera[] cameras;
+    /**
+     * The shapes in the scene.
+     * <p>
+     * This is an array of Shape objects.
+     */
     Shape[] shapes;
+    /**
+     * The lights in the scene.
+     * <p>
+     * This is an array of Light objects.
+     */
     Light[] lights;
+    /**
+     * The background color of the scene.
+     * <p>
+     * This is a Color object.
+     */
     Color background;
 
+    /**
+     * Create a new FScene.
+     * <p>
+     * This is used to read a scene from a file for rendering.
+     * <p>
+     * Example:
+     * <pre>
+     * FScene scene = new FScene();
+     * </pre>
+     */
     public FScene() {
         Camera[] cameras = {};
         Shape[] shapes = {};
@@ -31,6 +67,26 @@ public class FScene {
         this.background = background;
     }
 
+    /**
+     * Read a scene from a file.
+     * <p>
+     * This is used to read a scene from a file for rendering.
+     * <p>
+     * Pseudocode:
+     * <ol>
+     * <li>Read the file as a string</li>
+     * <li>Parse the string as JSON</li>
+     * <li>Deserialize the JSON into an FScene object</li>
+     * <li>Convert the FScene object into a Scene object</li>
+     * </ol>
+     * Example:
+     * <pre>
+     * Scene scene = FScene.readFScene("scene.json");
+     * </pre>
+     * @param filename the name of the file to read the scene from
+     * @return the scene read from the file
+     * @throws Exception if there is an error reading the file
+     */
     public static Scene readFScene(String filename) throws Exception {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Shape.class, new ShapeDeserializer());
