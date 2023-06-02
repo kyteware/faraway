@@ -60,13 +60,13 @@ public class Camera {
     }
 
     /**
-     * Get the position of the camera.
+     * Get the settings of the camera.
      * <p>
      * Example:
      * <pre>
-     * Vec3 position = camera.getPosition();
+     * Settings camSettings = camera.getSettings();
      * </pre>
-     * @return the position of the camera
+     * @return the settings for the camera
      */
     public CameraSettings getSettings() {
         return settings;
