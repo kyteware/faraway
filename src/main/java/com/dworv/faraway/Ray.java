@@ -1,19 +1,70 @@
 package com.dworv.faraway;
 
+/**
+ * Ray is used to represent a ray in the scene.
+ * <p>
+ * It is defined by a direction and an origin.
+ * @author github.com/dworv
+ */
 public class Ray {
+    /**
+     * The direction of the ray.
+     * <p>
+     * This is a unit vector.
+     */
     private Vec3 dir;
+    /**
+     * The origin of the ray.
+     * <p>
+     * This is a point.
+     */
     private Vec3 origin;
 
+    /**
+     * Create a new Ray.
+     * <p>
+     * Example:
+     * <pre>
+     * Ray ray = new Ray(new Vec3(1, 0, 0), new Vec3(0, 0, 0));
+     * </pre>
+     * @param dir the direction of the ray
+     * @param origin the origin of the ray
+     */
     public Ray(Vec3 dir, Vec3 origin) {
         this.dir = dir;
         this.origin = origin;
     }
 
+    /**
+     * Create a new Ray with a (0, 0, 0) origin.
+     * <p>
+     * Example:
+     * <pre>
+     * Ray ray = new Ray(new Vec3(1, 0, 0));
+     * </pre>
+     * @param dir the direction of the ray
+     */
     public Ray(Vec3 dir) {
         this.dir = dir;
         this.origin = new Vec3(0.);
     }
 
+    /**
+     * Create a new Ray from yaw and pitch.
+     * <p>
+     * Pseudocode:
+     * <ol>
+     *    <li> Use euclidean coordinates to convert yaw and pitch to a direction vector
+     *    <li> Create a new Ray with the direction vector and position
+     * </ol>
+     * Example:
+     * <pre>
+     * Ray ray = Ray.fromYawPitch(0, 0, new Vec3(0, 0, 0));
+     * </pre>
+     * @param yaw the yaw of the ray
+     * @param pitch the pitch of the ray
+     * @param position the position of the ray
+     */
     public static Ray fromYawPitch(double yaw, double pitch, Vec3 position) {
         return new Ray(
             new Vec3(
@@ -29,17 +80,42 @@ public class Ray {
         return "Ray(" + this.dir + ", " + this.origin + ")";
     }
 
+    /**
+     * Get the origin of the ray.
+     * @return
+     */
     public Vec3 getOrigin() {
         return origin;
     }
 
+    /**
+     * Get the direction of the ray.
+     * @return
+     */
     public Vec3 getDir() {
         return dir;
     }
 
     /**
-     * returns null if intercept behind
-    */
+     * Get the intercept of the ray and a plane.
+     * <p>
+     * WARNING: Returns null if the intercept is behind the origin.
+     * <p>
+     * Pseudocode:
+     * <ol>
+     *    <li> Get the distance from the origin to the plane
+     *    <li> If the distance is positive, return the intercept
+     *    <li> Otherwise, return null
+     * </ol>
+     * Example:
+     * <pre>
+     * Ray ray = new Ray(new Vec3(1, 0, 0), new Vec3(0, 0, 0));
+     * Plane plane = new Plane(1, 0, 0, 0);
+     * Vec3 intercept = ray.intercept(plane);
+     * </pre>
+     * @param plane the plane to intercept
+     * @return the intercept of the ray and the plane
+     */
     public Vec3 intercept(Plane plane) {
         double rawDist = - (
             (plane.toABC().dot(origin).sum() + plane.getK()) /
@@ -53,6 +129,34 @@ public class Ray {
         }
     }
 
+    /**
+     * Get the closest triangle to the ray.
+     * <p>
+     * Pseudocode:
+     * <ol>
+     *    <li> For each triangle in the scene
+     *    <li>    Get the plane of the triangle
+     *    <li>    Get the intercept of the ray and the plane
+     *    <li>    If the intercept is not null
+     *    <li>        Get the distance from the origin to the intercept
+     *    <li>        If the distance is less than the closest distance
+     *    <li>            Set the closest triangle to the current triangle
+     *    <li>            Set the closest distance to the current distance
+     *    <li> Return the closest triangle
+     * </ol>
+     * Example:
+     * <pre>
+     * Ray ray = new Ray(new Vec3(1, 0, 0), new Vec3(0, 0, 0));
+     * Triangle[] triangles = new Triangle[] {
+     *     new Triangle(new Vec3(0, 0, 0), new Vec3(1, 0, 0), new Vec3(0, 1, 0)),
+     *     new Triangle(new Vec3(0, 0, 0), new Vec3(0, 1, 0), new Vec3(0, 0, 1)),
+     *     new Triangle(new Vec3(0, 0, 0), new Vec3(0, 0, 1), new Vec3(1, 0, 0))
+     * };
+     * Triangle closestTriangle = ray.closestTriangle(triangles);
+     * </pre>
+     * @param triangles the triangles to check
+     * @return the closest triangle to the ray
+     */
     public Triangle closestTriangle(Triangle[] triangles) {
         double closestDist = Double.POSITIVE_INFINITY;
         Triangle closestTriangle = null;
@@ -72,6 +176,25 @@ public class Ray {
         return closestTriangle;
     }
 
+    /**
+     * Get the reflected ray of the ray and a plane.
+     * <p>
+     * Pseudocode:
+     * <ol>
+     *   <li> Get the intercept of the ray and the plane
+     *   <li> Get the normal of the plane
+     *   <li> Get the new direction of the ray
+     *   <li> Return a new ray with the new direction and the intercept
+     * </ol>
+     * Example:
+     * <pre>
+     * Ray ray = new Ray(new Vec3(1, 0, 0), new Vec3(0, 0, 0));
+     * Plane plane = new Plane(1, 0, 0, 0);
+     * Ray reflectedRay = ray.reflect(plane);
+     * </pre>
+     * @param plane the plane to reflect off of
+     * @return the reflected ray
+     */
     public Ray reflect(Plane plane) {
         Vec3 intercept = intercept(plane);
         Vec3 normal = plane.toABC().normalize();
@@ -79,6 +202,34 @@ public class Ray {
         return new Ray(newDir, intercept);
     }
 
+    /**
+     * Get the color of the ray.
+     * <p>
+     * Pseudocode:
+     * <ol>
+     *   <li> Get the closest triangle to the ray
+     *   <li> If the closest triangle is not null
+     *   <li>    For each light in the scene
+     *   <li>        Get the contribution of the light
+     *   <li>        Add the contribution to the color
+     *   <li>    Multiply the color by the color of the triangle
+     *   <li>    If the depth is greater than 0 and the triangle is reflective
+     *   <li>        Get the reflected ray
+     *   <li>        Get the color of the reflected ray
+     *   <li>        Multiply the color by the reflectivity of the triangle
+     *   <li>        Add the color to the color
+     *   <li> Return the color
+     * </ol>
+     * Example:
+     * <pre>
+     * Ray ray = new Ray(new Vec3(1, 0, 0), new Vec3(0, 0, 0));
+     * Scene scene = new Scene();
+     * Color color = ray.getColor(scene, 5);
+     * </pre>
+     * @param scene the scene to get the color from
+     * @param depth the depth of the ray
+     * @return the color of the ray
+     */
     public Color getColor(Scene scene, int depth) {
         Triangle closestTriangle = closestTriangle(scene.getTriangles());
 

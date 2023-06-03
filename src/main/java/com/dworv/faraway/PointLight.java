@@ -1,10 +1,42 @@
 package com.dworv.faraway;
 
+/**
+ * PointLight is used to represent a point light source in the scene.
+ * <p>
+ * It is defined by a position, a color, and an intensity.
+ * @author github.com/dworv
+ */
 public class PointLight extends Light {
+    /**
+     * The position of the light.
+     * <p>
+     * This is a Vec3 object, which is a 3D vector with x, y, and z components.
+     */
     Vec3 position;
+    /**
+     * The color of the light.
+     * <p>
+     * This is a Color object, which is a 3D vector with red, green, and blue components.
+     */
     Color color;
+    /**
+     * The intensity of the light.
+     * <p>
+     * This is a number between 0 and 1 that represents how much of the color is present in the scene.
+     */
     double intensity;
 
+    /**
+     * Create a new PointLight.
+     * <p>
+     * Example:
+     * <pre>
+     * PointLight light = new PointLight(new Vec3(0, 0, 0), new Color(1, 1, 1), 0.5);
+     * </pre>
+     * @param position the position of the light
+     * @param color the color of the light
+     * @param intensity the intensity of the light
+     */
     public PointLight(Vec3 position, Color color, double intensity) {
         this.position = position;
         this.color = color;
