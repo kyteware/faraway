@@ -104,6 +104,12 @@ public class FScene {
     }
 }
 
+/**
+ * A deserializer for Shape objects.
+ * <p>
+ * This is used to deserialize Shape objects from JSON.
+ * @author github.com/dworv
+ */
 class ShapeDeserializer implements JsonDeserializer<Shape> {
     @Override
     public Shape deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -120,6 +126,12 @@ class ShapeDeserializer implements JsonDeserializer<Shape> {
     }
 }
 
+/**
+ * A deserializer for Light objects.
+ * <p>
+ * This is used to deserialize Light objects from JSON.
+ * @author github.com/dworv
+ */
 class LightDeserializer implements JsonDeserializer<Light> {
     @Override
     public Light deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
