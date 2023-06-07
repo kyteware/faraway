@@ -88,12 +88,16 @@ public class FScene {
      * @throws Exception if there is an error reading the file
      */
     public static Scene readFScene(String filename) throws Exception {
+        // Make a new json reader and add adapters for my special classes
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Shape.class, new ShapeDeserializer());
         gsonBuilder.registerTypeAdapter(Light.class, new LightDeserializer());
         Gson gson = gsonBuilder.create();
+        // Read json from file
         String json = new String(Files.readAllBytes(Paths.get(filename)));
+        // Deserialize json into FScene object
         FScene scene = gson.fromJson(json, FScene.class);
+        // Convert FScene object into Scene object
         ArrayList<Triangle> triangles = new ArrayList<Triangle>();
         for (Shape shape : scene.shapes) {
             for (Triangle triangle : shape.getTriangles()) {

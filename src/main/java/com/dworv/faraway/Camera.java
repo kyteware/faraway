@@ -95,28 +95,34 @@ public class Camera {
      * @return the colors of the pixels in the image
      */
     public Color[][] render(Scene scene) {
+        // Get the height and width of the image
         int pixelHeight = settings.getPixelHeight();
         int pixelWidth = settings.getPixelWidth();
 
+        // Get the pitch and yaw of the camera for pixel (0,0)
         double startYaw = yaw + -1 * settings.getFOV() / 2;
         double yawIncrement = settings.getFOV() / pixelWidth;
+        // Get the increment for the pitch and the yaw for each pixel change
         double startPitch = pitch + startYaw / settings.getRatio() * -1;
         double pitchDecrement = (settings.getFOV() / settings.getRatio()) / pixelHeight;
+        // Generate 2d array of pixels
         Color[][] pixels = new Color[pixelHeight][pixelWidth];
-
         for (int i=0; i<pixelHeight; i++) {
             for (int j=0; j<pixelWidth; j++) {
+                // Use starting pitch and yaw with the increments to deduce the current angle
                 double localPitch = startPitch - i * pitchDecrement;
                 double localYaw = startYaw + j * yawIncrement;
-                // System.out.println("Rendering pixel (" + i + ", " + j + ") with yaw " + yaw + " and pitch " + pitch);
+                // Create base color
                 Color color = new Color(0.);
-                // System.out.println("Ray: " + generateRay(yaw, pitch));
+                // Get all samples for the pixel (multisampling/antiaaliasing)
                 for (int k=0; k<settings.getSamples(); k++) {
+                    // Get the ray of the sample
                     Ray ray = Ray.fromYawPitch(localYaw + Math.random() * yawIncrement, localPitch - Math.random() * pitchDecrement, position);
+                    // Add to the base color
                     color = color.add(ray.getColor(scene, 25));
                 }
-                color = color.div(settings.getSamples());
-                color = color.gamma(settings.getGamma());
+                // Average the color and apply gamma correction
+                color = color.div(settings.getSamples()).gamma(settings.getGamma());
                 pixels[i][j] = color;
             }
         }

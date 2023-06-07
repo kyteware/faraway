@@ -30,19 +30,24 @@ public class Draw {
      * @param path the path to draw to
      */
     public static void drawImage(Color[][] pixels, String path) {
+        // Get the image width and height
         int width = pixels[0].length;
         int height = pixels.length;
+        // Create a new awt BufferedImage
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        // Use the provided colors to write to the BufferedImage
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
                 Color color = pixels[i][j];
                 img.setRGB(j, i, color.encode());
             }
         }
+        // Write the BufferedImage to the file
         try {
             File f = new File(path);
             ImageIO.write(img, "png", f);
         } catch(IOException e){
+            // Fails to write to disk (probably a permissions issue if it ever happens))
             System.out.println(e);
         }
     }

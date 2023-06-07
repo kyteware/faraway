@@ -117,6 +117,7 @@ public class Ray {
      * @return the intercept of the ray and the plane
      */
     public Vec3 intercept(Plane plane) {
+        // Get the distance from the origin to the plane
         double rawDist = - (
             (plane.toABC().dot(origin).sum() + plane.getK()) /
             plane.toABC().dot(dir).sum()
@@ -125,6 +126,7 @@ public class Ray {
             return dir.dot(rawDist).add(origin);
         }
         else {
+            // Discord if it is negative (intercept is behind the origin))
             return null;
         }
     }
@@ -158,12 +160,15 @@ public class Ray {
      * @return the closest triangle to the ray
      */
     public Triangle closestTriangle(Triangle[] triangles) {
+        // The starting distance is infinity so any distance will be less than it (cool trick I learned a while ago)
         double closestDist = Double.POSITIVE_INFINITY;
         Triangle closestTriangle = null;
 
         for (Triangle t : triangles) {
             Plane plane = t.toPlane();
+            // Get intercept with triangle
             Vec3 localIntercept = this.intercept(plane);
+            // Ensure not behind origin
             if (localIntercept != null) {
                 double distance = origin.distance(localIntercept);
                 if (distance < closestDist && t.containsPoint(localIntercept)) {
@@ -231,20 +236,28 @@ public class Ray {
      * @return the color of the ray
      */
     public Color getColor(Scene scene, int depth) {
+        // Get the closest triangle
         Triangle closestTriangle = closestTriangle(scene.getTriangles());
 
-        Color color = new Color(0.);;
+        // Make a base color
+        Color color = new Color(0.);
         if (closestTriangle != null) {
+            // Add the contribution of each light
             for (Light light : scene.getLights()) {
                 Color contribution = light.contribution(this, closestTriangle, scene);
                 color = color.add(contribution);
             }  
             color = color.dot(closestTriangle.getTexture().getColor()).cap();
 
+            // Add the contribution of the reflected ray
             if (depth > 0 && closestTriangle.getTexture().getReflectivity() > 0.) {
+                // Get the reflected ray
                 Ray reflectedRay = this.reflect(closestTriangle.toPlaneFacing(origin));
+                // Move the origin of the ray forward a bit to prevent self-intersection
                 reflectedRay.origin = reflectedRay.origin.add(reflectedRay.dir.dot(0.0001));
+                // (Recursion) Get the color of the reflected ray
                 Color reflectedColor = reflectedRay.getColor(scene, depth-1);
+                // Add the reflected color to the color
                 double reflectivity = closestTriangle.getTexture().getReflectivity();
                 color = color.dot(1.-reflectivity).add(reflectedColor.dot(reflectivity));
             }

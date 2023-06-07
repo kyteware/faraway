@@ -290,13 +290,10 @@ public class Color {
      * <p>
      * Pseudocode:
      * <ol>
-     * <li>Encode the red component as an integer in the range [0, 255]</li>
-     * <li>Shift the red component 8 bits to the left</li>
-     * <li>Encode the green component as an integer in the range [0, 255]</li>
-     * <li>Shift the green component 8 bits to the left</li>
-     * <li>Encode the blue component as an integer in the range [0, 255]</li>
-     * <li>Shift the blue component 8 bits to the left</li>
-     * <li>Encode the alpha component as an integer in the range [0, 255]</li>
+     * <li>Add the alpha component (always full) and shift it 8 bits left</li>
+     * <li>Add the red component and shift it 8 bits left</li>
+     * <li>Add the green component and shift it 8 bits left</li>
+     * <li>Add the blue component</li>
      * </ol>
      * Example:
      * <pre>
@@ -307,13 +304,21 @@ public class Color {
      */
     public int encode() {
         int encoded = 0;
+        // Add alpha (always full)
         encoded += 255;
+        // Move 8 bits to the left
         encoded <<= 8;
+        // Add red
         encoded += (int) (r * 255.);
+        // Move 8 bits to the left
         encoded <<= 8;
+        // Add green
         encoded += (int) (g * 255.);
+        // Move 8 bits to the left
         encoded <<= 8;
+        // Add blue (doesn't need shifting)
         encoded += (int) (b * 255.);
+
         return encoded;
     }
 }
